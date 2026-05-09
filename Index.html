@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezon Haque | Author & Developer</title>
+    <style>
+        /* CSS Integration */
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1f6feb, #161b22);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            margin-top: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .skill-tag {
+            background: #238636;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        a { color: var(--accent-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Rezon Haque</h1>
+    <p>Author of <i>THE VOID</i> | Full-Stack Developer | Hardware Enthusiast</p>
+</header>
+
+<div class="container">
+    
+    <div class="section">
+        <h2>About the Author</h2>
+        <p>I am a creative writer and developer focused on the intersection of human psychology and digital technology. My work spans from deep-dive geopolitical research to technical hardware optimization.</p>
+        <div>
+            <span class="skill-tag">HTML5/CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Linux Optimization</span>
+            <span class="skill-tag">PCB Design</span>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="section">
+            <h2>Current Project: THE VOID</h2>
+            <p><i>THE VOID</i> is a creative non-fiction manuscript exploring isolation and identity. It grounds philosophical themes in real-life events, highlighting the quiet human connections found in shared technical struggles.</p>
+        </div>
+
+        <div class="section">
+            <h2>Research: 2026 Iran Conflict</h2>
+            <p>A strategic analysis of "Operation Epic Fury" and its global impact. My research examines how regional instability affects energy prices, maritime security, and trade economies like India.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Technical Expertise</h2>
+        <p>Beyond writing, I specialize in maximizing low-resource hardware performance. I have successfully configured high-volume browser support on legacy systems using lightweight Linux distributions and custom zRAM partitions.</p>
+    </div>
+
+    <div class="section" style="text-align: center;">
+        <h2>Get in Touch</h2>
+        <p>Interested in collaboration or literary inquiries?</p>
+        <p>
+            <a href="https://github.com/Rezon-Dev">GitHub</a> | 
+            <a href="#">Instagram</a> | 
+            <a href="#">Email Me</a>
+        </p>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 Rezon Haque. Built with custom HTML/CSS.
+</footer>
+
+</body>
+</html>
