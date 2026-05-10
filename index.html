@@ -6,148 +6,128 @@
     <title>Rezon Haque | Author & Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        /* 1. THEME VARIABLES - LIGHT IS DEFAULT */
         :root {
             --bg: #ffffff;
-            --surf: #f8f9fa;
             --text: #111111;
             --mute: #666666;
             --border: #eeeeee;
-            --accent: #0070f3;
         }
 
         [data-theme="dark"] {
             --bg: #0a0a0a;
-            --surf: #161616;
             --text: #ffffff;
             --mute: #888888;
             --border: #222222;
-            --accent: #ffffff;
         }
 
-        /* 2. CORE STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: var(--bg); 
             color: var(--text); 
-            transition: background 0.4s ease, color 0.4s ease;
-            overflow-x: hidden;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* 3. NAVIGATION */
         nav { 
-            position: fixed; top: 0; width: 100%; height: 70px; 
+            width: 100%; height: 70px; 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 0 8%; background: rgba(var(--bg), 0.8);
-            backdrop-filter: blur(10px); z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            padding: 0 10%; border-bottom: 1px solid var(--border);
         }
 
         .theme-btn { 
-            background: var(--surf); border: 1px solid var(--border); 
-            color: var(--text); padding: 8px 18px; border-radius: 6px; 
-            cursor: pointer; font-weight: 600; font-size: 0.8rem;
+            background: none; border: 1px solid var(--border); 
+            color: var(--text); padding: 8px 15px; border-radius: 20px; 
+            cursor: pointer; font-size: 0.8rem;
         }
 
-        /* 4. HERO SECTION */
-        .hero { 
-            min-height: 100vh; display: flex; align-items: center; 
-            padding: 100px 8% 50px; flex-wrap: wrap; gap: 40px; 
+        .container {
+            max-width: 800px;
+            padding: 100px 20px;
+            text-align: center;
         }
 
-        .hero-content { flex: 1.2; min-width: 320px; }
-        .hero-image-wrap { flex: 0.8; min-width: 320px; display: flex; justify-content: center; }
-
-        h1 { font-size: clamp(3.5rem, 8vw, 5.5rem); letter-spacing: -3px; line-height: 0.9; margin-bottom: 20px; }
-        
-        .type-box { 
-            font-family: 'Fira Code', monospace; font-size: 1.2rem; 
-            color: var(--mute); margin-bottom: 35px; min-height: 30px;
+        /* --- THE 1:1 CROP LOGIC --- */
+        .image-container {
+            width: 180px;  /* Set size */
+            height: 180px; /* Same as width for 1:1 */
+            margin: 0 auto 30px;
+            overflow: hidden;
+            border-radius: 50%; /* Makes it a circle like toibur.com */
+            border: 4px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        #tw { color: var(--text); font-weight: 600; }
 
-        /* 5. IMAGE STYLING */
         .profile-pic {
-            width: 100%; max-width: 420px; border-radius: 24px;
-            filter: grayscale(100%); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This crops the image 1:1 automatically */
+            filter: grayscale(100%);
+            transition: 0.5s;
         }
-        .profile-pic:hover { filter: grayscale(0%); transform: scale(1.02); }
 
-        /* 6. BUTTONS */
-        .btn-group { display: flex; gap: 15px; }
+        .profile-pic:hover { filter: grayscale(0%); transform: scale(1.1); }
+
+        h1 { font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 10px; }
+        .type-box { font-family: 'Fira Code', monospace; color: var(--mute); margin-bottom: 40px; }
+        
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
         .btn { 
-            padding: 14px 28px; border-radius: 12px; text-decoration: none; 
-            font-weight: 700; font-size: 0.9rem; transition: 0.3s; 
+            padding: 12px 25px; border-radius: 50px; text-decoration: none; 
+            font-weight: 700; transition: 0.3s; font-size: 0.9rem;
         }
-        .btn-primary { background: var(--text); color: var(--bg); }
-        .btn-insta { border: 1px solid var(--border); color: var(--text); }
-        .btn:hover { transform: translateY(-3px); opacity: 0.9; }
-
-        /* 7. FOOTER */
-        footer { padding: 50px 8%; text-align: center; border-top: 1px solid var(--border); color: var(--mute); font-size: 0.8rem; }
-
-        @media (max-width: 768px) {
-            .hero { text-align: center; justify-content: center; }
-            .btn-group { justify-content: center; }
-        }
+        .btn-p { background: var(--text); color: var(--bg); }
+        .btn-i { border: 1px solid var(--border); color: var(--text); }
+        
+        footer { margin-top: 100px; padding: 40px; color: var(--mute); font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight:900; font-size: 1.2rem;">RH.DEV</div>
+        <div style="font-weight:900">RH.DEV</div>
         <button class="theme-btn" id="t-btn">Dark Mode</button>
     </nav>
 
-    <main class="hero">
-        <div class="hero-content">
-            <p style="text-transform:uppercase; letter-spacing:4px; font-size:0.7rem; margin-bottom: 15px; color: var(--mute);">Student • Author • Developer</p>
-            <h1>Rezon Haque</h1>
-            <div class="type-box">I am a <span id="tw"></span></div>
-            <div class="btn-group">
-                <a href="https://www.instagram.com/rezon.5839" class="btn btn-primary" target="_blank">Instagram</a>
-                <a href="#work" class="btn btn-insta">View Projects</a>
-            </div>
-        </div>
-        
-        <div class="hero-image-wrap">
+    <div class="container">
+        <div class="image-container">
             <img src="60782.jpeg" alt="Rezon Haque" class="profile-pic">
         </div>
-    </main>
 
-    <footer id="work">
-        <p>Built with precision by Rezon Haque &copy; 2026</p>
-    </footer>
+        <h1>Rezon Haque</h1>
+        <div class="type-box">I am a <span id="tw"></span></div>
+
+        <div class="btn-group">
+            <a href="https://www.instagram.com/rezon.5839" class="btn btn-p" target="_blank">Instagram</a>
+            <a href="mailto:your-email@example.com" class="btn btn-i">Contact Me</a>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Rezon Haque</footer>
 
     <script>
-        // --- 1. TYPEWRITER ENGINE ---
         const tw = document.getElementById('tw');
-        const phrases = ["website developer.", "photo editor.", "video editor.", "AI master."];
-        let pIdx = 0, cIdx = 0, isDeleting = false;
+        const ph = ["website developer.", "photo editor.", "video editor.", "AI master."];
+        let pI = 0, cI = 0, isD = false;
 
-        function typeEffect() {
-            const current = phrases[pIdx];
-            tw.textContent = isDeleting ? current.substring(0, cIdx--) : current.substring(0, cIdx++);
-            
-            let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && cIdx > current.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && cIdx === 0) { isDeleting = false; pIdx = (pIdx + 1) % phrases.length; speed = 500; }
-            setTimeout(typeEffect, speed);
+        function type() {
+            const cur = ph[pI];
+            tw.textContent = isD ? cur.substring(0, cI--) : cur.substring(0, cI++);
+            let s = isD ? 50 : 100;
+            if (!isD && cI > cur.length) { s = 2000; isD = true; }
+            else if (isD && cI === 0) { isD = false; pI = (pI + 1) % ph.length; s = 500; }
+            setTimeout(type, s);
         }
 
-        // --- 2. THEME TOGGLE LOGIC ---
         const tBtn = document.getElementById('t-btn');
-        const root = document.documentElement;
-
         tBtn.onclick = () => {
-            const isDark = root.toggleAttribute('data-theme');
-            tBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            const dark = document.documentElement.toggleAttribute('data-theme');
+            tBtn.textContent = dark ? 'Light Mode' : 'Dark Mode';
         };
 
-        // --- 3. INITIALIZE ---
-        window.onload = typeEffect;
+        window.onload = type;
     </script>
 </body>
 </html>
