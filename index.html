@@ -518,72 +518,35 @@
     </div>
 
     <script>
+    const typeElement = document.getElementById('typewriter');
     const themeBtn = document.getElementById('theme-btn');
-    const body = document.documentElement;
+    const phrases = ["website developer.", "photo editor.", "video editor.", "AI master."];
+    let pIdx = 0, cIdx = 0, isDel = false;
 
-    // 1. Theme Toggle Logic
-    themeBtn.addEventListener('click', () => {
-        if (body.getAttribute('data-theme') === 'light') {
-            body.removeAttribute('data-theme');
-            themeBtn.textContent = 'Light Mode';
-        } else {
-            body.setAttribute('data-theme', 'light');
-            themeBtn.textContent = 'Dark Mode';
-        }
-    });
+    // Typewriter Engine
+    function type() {
+        const full = phrases[pIdx];
+        typeElement.textContent = isDel ? full.substring(0, cIdx--) : full.substring(0, cIdx++);
+        
+        let speed = isDel ? 50 : 100;
+        if (!isDel && cIdx > full.length) { speed = 2000; isDel = true; }
+        else if (isDel && cIdx === 0) { isDel = false; pIdx = (pIdx + 1) % phrases.length; speed = 500; }
+        setTimeout(type, speed);
+    }
 
-    // 2. Force Content to Show (Fixes the black screen)
+    // Toggle & Content Reveal
+    themeBtn.onclick = () => {
+        const isLight = document.documentElement.toggleAttribute('data-theme');
+        themeBtn.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+    };
+
     window.onload = () => {
+        type(); // Start writing
         document.querySelectorAll('.reveal').forEach(el => {
             el.style.opacity = "1";
             el.style.transform = "none";
         });
     };
-
-        // --- Updated Typewriter Phrases ---
-const phrases = [
-    "I am a website developer.",
-    "I am a photo editor.",
-    "I am a video editor.",
-    "I am an AI master."
-];
-
-let phraseIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typeElement = document.getElementById('typewriter');
-
-function typeWriter() {
-    const currentPhrase = phrases[phraseIndex];
-    
-    if (isDeleting) {
-        typeElement.textContent = currentPhrase.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typeElement.textContent = currentPhrase.substring(0, charIndex + 1);
-        charIndex++;
-    }
-    
-    // Typing speed logic
-    let typeSpeed = isDeleting ? 50 : 100;
-    
-    if (!isDeleting && charIndex === currentPhrase.length) {
-        typeSpeed = 2000; // Pause at the end
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        typeSpeed = 500;
-    }
-    
-    setTimeout(typeWriter, typeSpeed);
-}
-
-// Start the animation
-window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(typeWriter, 1000);
-});
-        
     </script>
     
 </body>
