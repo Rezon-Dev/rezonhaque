@@ -4,140 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rezon Haque | Author & Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
-
+        /* 1. THEME VARIABLES - LIGHT IS DEFAULT */
         :root {
-    --bg: #ffffff; 
-    --text: #111111;
-    --border: #e5e5e5;
-}
-
-/* This ONLY activates when you click the button */
-[data-theme="dark"] {
-    --bg: #000000;
-    --text: #ffffff;
-    --border: #333333;
-}
-
-body {
-    background-color: var(--bg) !important; /* Force the color */
-    color: var(--text) !important;
-    transition: background 0.3s ease;
-}
-        
-        :root {
-            --bg: #f9f9f9; --surf: #ffffff; --text: #111111; --mute: #666666;
-            --border: #e5e5e5; --accent: #0070f3;
+            --bg: #ffffff;
+            --surf: #f8f9fa;
+            --text: #111111;
+            --mute: #666666;
+            --border: #eeeeee;
+            --accent: #0070f3;
         }
+
         [data-theme="dark"] {
-            --bg: #050505; --surf: #111111; --text: #f0f0f0; --mute: #888888;
-            --border: #222222; --accent: #ffffff;
+            --bg: #0a0a0a;
+            --surf: #161616;
+            --text: #ffffff;
+            --mute: #888888;
+            --border: #222222;
+            --accent: #ffffff;
         }
+
+        /* 2. CORE STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); 
-            line-height: 1.6; transition: 0.3s; overflow-x: hidden;
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; opacity: 0.5; }
+
+        /* 3. NAVIGATION */
         nav { 
-            position: fixed; top: 0; width: 100%; height: 70px; display: flex; 
-            justify-content: space-between; align-items: center; padding: 0 5%;
-            background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); z-index: 100;
+            position: fixed; top: 0; width: 100%; height: 70px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 0 8%; background: rgba(var(--bg), 0.8);
+            backdrop-filter: blur(10px); z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
-        [data-theme="dark"] nav { background: rgba(5,5,5,0.8); }
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; }
-        h1 { font-size: clamp(3rem, 10vw, 6rem); letter-spacing: -2px; line-height: 1; }
-        .type-box { font-family: 'Fira Code', monospace; color: var(--mute); font-size: 1.5rem; margin: 20px 0; min-height: 40px; }
-        .cursor { border-left: 3px solid var(--accent); margin-left: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
-        .btn { padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; }
-        .btn-p { background: var(--text); color: var(--bg); }
-        .btn-i { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: white; }
+
+        .theme-btn { 
+            background: var(--surf); border: 1px solid var(--border); 
+            color: var(--text); padding: 8px 18px; border-radius: 6px; 
+            cursor: pointer; font-weight: 600; font-size: 0.8rem;
+        }
+
+        /* 4. HERO SECTION */
+        .hero { 
+            min-height: 100vh; display: flex; align-items: center; 
+            padding: 100px 8% 50px; flex-wrap: wrap; gap: 40px; 
+        }
+
+        .hero-content { flex: 1.2; min-width: 320px; }
+        .hero-image-wrap { flex: 0.8; min-width: 320px; display: flex; justify-content: center; }
+
+        h1 { font-size: clamp(3.5rem, 8vw, 5.5rem); letter-spacing: -3px; line-height: 0.9; margin-bottom: 20px; }
+        
+        .type-box { 
+            font-family: 'Fira Code', monospace; font-size: 1.2rem; 
+            color: var(--mute); margin-bottom: 35px; min-height: 30px;
+        }
+        #tw { color: var(--text); font-weight: 600; }
+
+        /* 5. IMAGE STYLING */
+        .profile-pic {
+            width: 100%; max-width: 420px; border-radius: 24px;
+            filter: grayscale(100%); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+        .profile-pic:hover { filter: grayscale(0%); transform: scale(1.02); }
+
+        /* 6. BUTTONS */
+        .btn-group { display: flex; gap: 15px; }
+        .btn { 
+            padding: 14px 28px; border-radius: 12px; text-decoration: none; 
+            font-weight: 700; font-size: 0.9rem; transition: 0.3s; 
+        }
+        .btn-primary { background: var(--text); color: var(--bg); }
+        .btn-insta { border: 1px solid var(--border); color: var(--text); }
         .btn:hover { transform: translateY(-3px); opacity: 0.9; }
-        .theme-btn { background: none; border: 1px solid var(--border); color: var(--text); padding: 5px 15px; border-radius: 20px; cursor: pointer; }
-        .section { padding: 80px 10%; border-top: 1px solid var(--border); }
-        .card { background: var(--surf); padding: 30px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
-        footer { padding: 40px; text-align: center; font-size: 0.8rem; color: var(--mute); }
+
+        /* 7. FOOTER */
+        footer { padding: 50px 8%; text-align: center; border-top: 1px solid var(--border); color: var(--mute); font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .hero { text-align: center; justify-content: center; }
+            .btn-group { justify-content: center; }
+        }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+
     <nav>
-        <div style="font-weight:900">RH.DEV</div>
+        <div style="font-weight:900; font-size: 1.2rem;">RH.DEV</div>
         <button class="theme-btn" id="t-btn">Dark Mode</button>
     </nav>
-    <div class="hero">
-        <p style="text-transform:uppercase; letter-spacing:3px; font-size:0.8rem">Author & Creator</p>
-        <h1>Rezon Haque</h1>
-        <div class="type-box">I am a <span id="tw"></span><span class="cursor"></span></div>
-        <div class="btn-group">
-            <a href="https://www.instagram.com/rezon.5839" class="btn btn-i" target="_blank">Instagram @rezon.5839</a>
-            <a href="#work" class="btn btn-p">View My Work</a>
+
+    <main class="hero">
+        <div class="hero-content">
+            <p style="text-transform:uppercase; letter-spacing:4px; font-size:0.7rem; margin-bottom: 15px; color: var(--mute);">Student • Author • Developer</p>
+            <h1>Rezon Haque</h1>
+            <div class="type-box">I am a <span id="tw"></span></div>
+            <div class="btn-group">
+                <a href="https://www.instagram.com/rezon.5839" class="btn btn-primary" target="_blank">Instagram</a>
+                <a href="#work" class="btn btn-insta">View Projects</a>
+            </div>
         </div>
-    </div>
-    <section class="section" id="work">
-        <div class="card">
-            <h3>THE VOID</h3>
-            <p>A creative manuscript exploring psychological identity and technical reality.</p>
+        
+        <div class="hero-image-wrap">
+            <img src="60782.jpeg" alt="Rezon Haque" class="profile-pic">
         </div>
-        <div class="card">
-            <h3>Systems Engineering</h3>
-            <p>Specializing in legacy hardware optimization and Linux kernel tuning.</p>
-        </div>
-    </section>
-    <footer>&copy; 2026 Rezon Haque. All rights reserved.</footer>
+    </main>
+
+    <footer id="work">
+        <p>Built with precision by Rezon Haque &copy; 2026</p>
+    </footer>
 
     <script>
-        const tBtn = document.getElementById('t-btn');
-const body = document.documentElement;
+        // --- 1. TYPEWRITER ENGINE ---
+        const tw = document.getElementById('tw');
+        const phrases = ["website developer.", "photo editor.", "video editor.", "AI master."];
+        let pIdx = 0, cIdx = 0, isDeleting = false;
 
-tBtn.onclick = () => {
-    // Check if it's currently dark or light
-    if (body.hasAttribute('data-theme')) {
-        body.removeAttribute('data-theme');
-        tBtn.textContent = 'Dark Mode';
-    } else {
-        body.setAttribute('data-theme', 'dark');
-        tBtn.textContent = 'Light Mode';
-    }
-};
-        
-        const tw = document.getElementById('tw'), tBtn = document.getElementById('t-btn'), body = document.documentElement;
-        const ph = ["website developer.", "photo editor.", "video editor.", "AI master."];
-        let pI = 0, cI = 0, isD = false;
-
-        function type() {
-            const current = ph[pI];
-            tw.textContent = isD ? current.substring(0, cI--) : current.substring(0, cI++);
-            let s = isD ? 50 : 100;
-            if (!isD && cI > current.length) { s = 2000; isD = true; }
-            else if (isD && cI === 0) { isD = false; pI = (pI + 1) % ph.length; s = 500; }
-            setTimeout(type, s);
+        function typeEffect() {
+            const current = phrases[pIdx];
+            tw.textContent = isDeleting ? current.substring(0, cIdx--) : current.substring(0, cIdx++);
+            
+            let speed = isDeleting ? 50 : 100;
+            if (!isDeleting && cIdx > current.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && cIdx === 0) { isDeleting = false; pIdx = (pIdx + 1) % phrases.length; speed = 500; }
+            setTimeout(typeEffect, speed);
         }
 
+        // --- 2. THEME TOGGLE LOGIC ---
+        const tBtn = document.getElementById('t-btn');
+        const root = document.documentElement;
+
         tBtn.onclick = () => {
-            const isDark = body.toggleAttribute('data-theme');
+            const isDark = root.toggleAttribute('data-theme');
             tBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
         };
 
-        // Simplified Particles
-        const c = document.getElementById('canvas'), x = c.getContext('2d');
-        let pts = [];
-        function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
-        window.onresize = resize; resize();
-        class Pt {
-            constructor() { this.x = Math.random()*c.width; this.y = Math.random()*c.height; this.vX = Math.random()*1-0.5; this.vY = Math.random()*1-0.5; }
-            up() { this.x += this.vX; this.y += this.vY; if(this.x<0||this.x>c.width)this.vX*=-1; if(this.y<0||this.y>c.height)this.vY*=-1;
-                x.fillStyle = body.hasAttribute('data-theme') ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)';
-                x.beginPath(); x.arc(this.x, this.y, 2, 0, Math.PI*2); x.fill();
-            }
-        }
-        for(let i=0; i<50; i++) pts.push(new Pt());
-        function anim() { x.clearRect(0,0,c.width,c.height); pts.forEach(p=>p.up()); requestAnimationFrame(anim); }
-        window.onload = () => { type(); anim(); };
+        // --- 3. INITIALIZE ---
+        window.onload = typeEffect;
     </script>
 </body>
 </html>
