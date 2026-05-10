@@ -56,3 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
     playTypewriter();
 });
 
+const projectData = [
+    { title: "THE VOID", tag: "Literature", desc: "Psychological exploration of the digital era." },
+    { title: "REZIES_ELECTRO", tag: "Hardware", desc: "Custom PCB and circuit engineering." },
+    { title: "RH_ARCHITECT", tag: "Dev", desc: "System-level optimization for Linux." }
+];
+
+function loadProjects() {
+    const grid = document.querySelector('.project-grid');
+    if(!grid) return;
+    
+    grid.innerHTML = projectData.map(p => `
+        <article class="p-card">
+            <div class="p-header"><span class="p-tag">${p.tag}</span></div>
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+            <div class="p-footer">STATUS: ACTIVE</div>
+        </article>
+    `).join('');
+}
+
+window.addEventListener('DOMContentLoaded', loadProjects);
+
