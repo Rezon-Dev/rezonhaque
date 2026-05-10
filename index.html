@@ -514,112 +514,28 @@
     </div>
 
     <script>
-        // --- 1. THEME TOGGLER LOGIC ---
-        const themeBtn = document.getElementById('theme-btn');
-        let currentTheme = 'dark';
+    const themeBtn = document.getElementById('theme-btn');
+    const body = document.documentElement;
 
-        themeBtn.addEventListener('click', () => {
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeBtn.textContent = 'Dark Mode';
-                currentTheme = 'light';
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-                themeBtn.textContent = 'Light Mode';
-                currentTheme = 'dark';
-            }
+    // 1. Theme Toggle Logic
+    themeBtn.addEventListener('click', () => {
+        if (body.getAttribute('data-theme') === 'light') {
+            body.removeAttribute('data-theme');
+            themeBtn.textContent = 'Light Mode';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeBtn.textContent = 'Dark Mode';
+        }
+    });
+
+    // 2. Force Content to Show (Fixes the black screen)
+    window.onload = () => {
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.opacity = "1";
+            el.style.transform = "none";
         });
-
-        // --- 2. TYPEWRITER EFFECT ---
-        const phrases = [
-            "Author of THE VOID.",
-            "Optimizing Linux kernels.",
-            "Mastering JavaScript.",
-            "Designing logic circuits."
-        ];
-        
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeElement = document.getElementById('typewriter');
-        
-        function typeWriter() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                typeElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typeElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            let typeSpeed = isDeleting ? 50 : 100;
-            
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                typeSpeed = 2000; // Pause at end of phrase
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500; // Pause before new phrase
-            }
-            
-            setTimeout(typeWriter, typeSpeed);
-        }
-        
-        // Start typing effect after a
-                    setTimeout(typeWriter, typeSpeed);
-        }
-        setTimeout(typeWriter, 1000);
-
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            });
-        }, { threshold: 0.15 });
-        revealElements.forEach(el => revealOnScroll.observe(el));
-
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
-        let mouse = { x: null, y: null, radius: 150 };
-        window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize); resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.baseX = this.x; this.baseY = this.y;
-                this.density = (Math.random() * 30) + 1;
-            }
-            update() {
-                let dx = mouse.x - this.x; let dy = mouse.y - this.y;
-                let dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < mouse.radius) {
-                    this.x -= (dx/dist) * ((mouse.radius - dist) / mouse.radius) * this.density;
-                    this.y -= (dy/dist) * ((mouse.radius - dist) / mouse.radius) * this.density;
-                } else {
-                    if (this.x !== this.baseX) this.x -= (this.x - this.baseX) / 10;
-                    if (this.y !== this.baseY) this.y -= (this.y - this.baseY) / 10;
-                }
-                ctx.fillStyle = currentTheme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)';
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-        function init() { for (let i = 0; i < 100; i++) particlesArray.push(new Particle()); }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(p => p.update());
-            requestAnimationFrame(animate);
-        }
-        init(); animate();
+    };
     </script>
+    
 </body>
 </html>
