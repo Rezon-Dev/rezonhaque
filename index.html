@@ -6,6 +6,26 @@
     <title>Rezon Haque | Author & Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
+
+        :root {
+    --bg: #ffffff; 
+    --text: #111111;
+    --border: #e5e5e5;
+}
+
+/* This ONLY activates when you click the button */
+[data-theme="dark"] {
+    --bg: #000000;
+    --text: #ffffff;
+    --border: #333333;
+}
+
+body {
+    background-color: var(--bg) !important; /* Force the color */
+    color: var(--text) !important;
+    transition: background 0.3s ease;
+}
+        
         :root {
             --bg: #f9f9f9; --surf: #ffffff; --text: #111111; --mute: #666666;
             --border: #e5e5e5; --accent: #0070f3;
@@ -71,6 +91,20 @@
     <footer>&copy; 2026 Rezon Haque. All rights reserved.</footer>
 
     <script>
+        const tBtn = document.getElementById('t-btn');
+const body = document.documentElement;
+
+tBtn.onclick = () => {
+    // Check if it's currently dark or light
+    if (body.hasAttribute('data-theme')) {
+        body.removeAttribute('data-theme');
+        tBtn.textContent = 'Dark Mode';
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        tBtn.textContent = 'Light Mode';
+    }
+};
+        
         const tw = document.getElementById('tw'), tBtn = document.getElementById('t-btn'), body = document.documentElement;
         const ph = ["website developer.", "photo editor.", "video editor.", "AI master."];
         let pI = 0, cI = 0, isD = false;
