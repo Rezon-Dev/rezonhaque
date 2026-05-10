@@ -3,150 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rezon Haque | Author & Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <style>
-        /* 1. LIGHT THEME (DEFAULT) */
-        :root {
-            --bg: #ffffff;
-            --text: #111111;
-            --border: #eeeeee;
-            --mute: #666666;
-        }
-
-        /* 2. DARK THEME */
-        [data-theme="dark"] {
-            --bg: #0a0a0a;
-            --text: #ffffff;
-            --border: #222222;
-            --mute: #888888;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            transition: background 0.3s ease, color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        nav { 
-            width: 100%; height: 80px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 0 10%; border-bottom: 1px solid var(--border);
-        }
-
-        /* TOGGLE BUTTON STYLE */
-        .theme-btn { 
-            background: none; 
-            border: 1px solid var(--border); 
-            color: var(--text); 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .container {
-            max-width: 600px;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        /* 1:1 CROP BOX */
-        .img-box {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            border-radius: 50%; /* Circle like toibur.com */
-            overflow: hidden;
-            border: 3px solid var(--border);
-        }
-
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* This forces the 1:1 crop */
-            filter: grayscale(100%);
-            transition: 0.5s ease;
-        }
-
-        .profile-pic:hover { filter: grayscale(0%); transform: scale(1.05); }
-
-        h1 { font-size: 3rem; letter-spacing: -2px; margin-bottom: 10px; }
-        .type-box { font-family: 'Fira Code', monospace; color: var(--mute); height: 24px; margin-bottom: 40px; }
-        
-        .btn-group { display: flex; gap: 12px; justify-content: center; }
-        .btn { 
-            padding: 12px 24px; border-radius: 50px; text-decoration: none; 
-            font-weight: 700; font-size: 0.9rem; transition: 0.2s;
-        }
-        .btn-dark { background: var(--text); color: var(--bg); }
-        .btn-light { border: 1px solid var(--border); color: var(--text); }
-        
-        footer { margin-top: auto; padding-bottom: 40px; color: var(--mute); font-size: 0.7rem; letter-spacing: 1px; }
-    </style>
+    <title>Rezon Haque | Official Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav>
-        <div style="font-weight:900; letter-spacing: 1px;">RH_DEV</div>
-        <button class="theme-btn" id="toggle-btn">Dark Mode</button>
+    <nav class="navbar">
+        <div class="logo">RH_DEV</div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="theme-btn">Dark Mode</button>
+        </div>
     </nav>
 
-    <div class="container">
-        <div class="img-box">
-            <img src="60782.jpeg" alt="Rezon Haque" class="profile-pic">
-        </div>
+    <main>
+        <section class="hero">
+            <div class="img-box">
+                <img src="60782.jpeg" alt="Rezon Haque" class="profile-pic">
+            </div>
+            <h1>Rezon Haque</h1>
+            <p class="type-box">I am a <span id="type-text"></span></p>
+            <div class="btn-group">
+                <a href="https://www.instagram.com/rezon.5839" class="btn btn-dark" target="_blank">Instagram</a>
+                <a href="#projects" class="btn btn-light">Explore Work</a>
+            </div>
+        </section>
 
-        <h1>Rezon Haque</h1>
-        <div class="type-box">I am a <span id="type-text"></span></div>
+        <section class="section">
+            <h2 class="section-title">Technical Matrix</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Development</h3>
+                    <p>HTML5, CSS3, JavaScript, Full-Stack Architecture.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Media</h3>
+                    <p>Professional Video Editing & Cinematic Photo Post-Processing.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Systems</h3>
+                    <p>Linux Kernel Optimization, zRAM Config, Hardware Repair.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="btn-group">
-            <a href="https://www.instagram.com/rezon.5839" class="btn btn-dark" target="_blank">Instagram</a>
-            <a href="https://github.com/rezon-dev" class="btn btn-light" target="_blank">GitHub</a>
-        </div>
-    </div>
+        <section id="projects" class="section">
+            <h2 class="section-title">Major Projects</h2>
+            <div class="project-list">
+                <div class="project-item">
+                    <div class="project-info">
+                        <span class="tag">Literature</span>
+                        <h3>THE VOID</h3>
+                        <p>A psychological manuscript exploring the intersection of human isolation and mechanical logic.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <span class="tag">Engineering</span>
+                        <h3>Legacy Revival</h3>
+                        <p>Stripping down OS environments to breathe life into aging hardware using custom kernels.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <footer>EST. 2026 • REZON HAQUE</footer>
+    <footer>
+        <p>REZON HAQUE &copy; 2026 • AUTHOR & DEVELOPER</p>
+    </footer>
 
-    <script>
-        // TYPEWRITER
-        const textEl = document.getElementById('type-text');
-        const roles = ["website developer.", "photo editor.", "video editor.", "AI master."];
-        let rIdx = 0, charIdx = 0, isDeleting = false;
-
-        function playTypewriter() {
-            const currentRole = roles[rIdx];
-            textEl.textContent = isDeleting ? currentRole.substring(0, charIdx--) : currentRole.substring(0, charIdx++);
-            
-            let speed = isDeleting ? 40 : 80;
-            if (!isDeleting && charIdx > currentRole.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIdx === 0) { isDeleting = false; rIdx = (rIdx + 1) % roles.length; speed = 500; }
-            setTimeout(playTypewriter, speed);
-        }
-
-        // THEME TOGGLE (Simplified Fix)
-        const btn = document.getElementById('toggle-btn');
-        const doc = document.documentElement;
-
-        btn.addEventListener('click', () => {
-            if (doc.hasAttribute('data-theme')) {
-                doc.removeAttribute('data-theme');
-                btn.textContent = 'Dark Mode';
-            } else {
-                doc.setAttribute('data-theme', 'dark');
-                btn.textContent = 'Light Mode';
-            }
-        });
-
-        window.onload = playTypewriter;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
