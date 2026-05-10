@@ -3,199 +3,624 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rezon Haque | Official Author Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Rezon Haque | Author & Full-Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* ==========================================================================
+           CSS VARIABLES & THEME CONFIGURATION
+           ========================================================================== */
         :root {
-            --bg: #ffffff;
-            --text: #111111;
-            --accent: #0070f3; /* Premium Blue */
-            --secondary: #666666;
-            --button-bg: #111111;
-            --button-text: #ffffff;
+            /* Dark Theme (Default) */
+            --bg-base: #050505;
+            --bg-surface: #111111;
+            --bg-surface-hover: #1a1a1a;
+            --text-main: #f0f0f0;
+            --text-muted: #888888;
+            --accent-primary: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.1);
+            --border-color: #222222;
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-md: 12px;
+            --radius-full: 9999px;
+            --nav-height: 80px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        [data-theme="light"] {
+            --bg-base: #f9f9f9;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f0f0f0;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent-primary: #000000;
+            --accent-glow: rgba(0, 0, 0, 0.05);
+            --border-color: #e5e5e5;
+        }
+
+        /* ==========================================================================
+           GLOBAL RESET & TYPOGRAPHY
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
+            font-family: var(--font-sans);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Smooth reveal animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        canvas#particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .relative-z {
+            position: relative;
+            z-index: 10;
         }
 
-        /* Hero Section */
-        header {
-            height: 90vh;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-sans);
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        /* ==========================================================================
+           NAVIGATION BAR
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            background: rgba(var(--bg-base), 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            transition: var(--transition-smooth);
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover {
+            background: var(--text-main);
+            color: var(--bg-base);
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            animation: fadeIn 1s ease-out;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-label::before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--text-muted);
         }
 
         .hero-title {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
+            font-size: clamp(3.5rem, 8vw, 8rem);
             letter-spacing: -3px;
-            line-height: 0.9;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
         }
 
-        .hero-sub {
-            font-size: 1.5rem;
-            color: var(--secondary);
-            max-width: 600px;
+        .typewriter-container {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--text-muted);
+            font-style: italic;
             margin-bottom: 3rem;
+            min-height: 60px;
         }
 
-        /* Buttons */
-        .btn-group {
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: var(--accent-primary);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ==========================================================================
+           BUTTONS & COMPONENTS
+           ========================================================================== */
+        .btn-container {
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
+            padding: 1.2rem 2.5rem;
+            border-radius: var(--radius-full);
             font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
 
         .btn-primary {
-            background-color: var(--button-bg);
-            color: var(--button-text);
+            background-color: var(--text-main);
+            color: var(--bg-base);
+            border: 1px solid var(--text-main);
         }
 
         .btn-primary:hover {
-            transform: scale(1.05);
-            background-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--accent-glow);
         }
 
         .btn-insta {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-insta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            z-index: -1;
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .btn-insta:hover::before {
+            opacity: 1;
         }
 
         .btn-insta:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(220, 39, 67, 0.3);
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(220, 39, 67, 0.2);
         }
 
-        /* Projects Grid */
+        /* ==========================================================================
+           SECTIONS & GRIDS
+           ========================================================================== */
         .section {
-            padding: 100px 0;
+            padding: 8rem 5%;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
         }
 
         .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--secondary);
-            margin-bottom: 2rem;
-            display: block;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: -1px;
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Work Grid Layout */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
         }
 
         .project-card {
-            border-top: 1px solid #eaeaea;
-            padding: 3rem 0;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-            transition: opacity 0.3s;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 4rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
         }
 
         .project-card:hover {
-            opacity: 0.7;
+            border-color: var(--text-main);
+            transform: translateY(-5px);
         }
 
-        .project-year { font-weight: 300; color: var(--secondary); }
-        .project-info h3 { font-size: 2rem; margin-bottom: 0.5rem; }
-
-        footer {
-            padding: 4rem 0;
-            border-top: 1px solid #eaeaea;
-            text-align: center;
-            color: var(--secondary);
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
             font-size: 0.9rem;
         }
 
+        .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        .project-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            color: var(--text-main);
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        footer {
+            padding: 4rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           MEDIA QUERIES (RESPONSIVENESS)
+           ========================================================================== */
         @media (max-width: 768px) {
-            .project-card { grid-template-columns: 1fr; padding: 2rem 0; }
+            .nav-links { display: none; } /* Hide links on mobile for minimal look */
+            .project-card { padding: 2rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .btn-container { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <span class="section-title">Author & Full-Stack Developer</span>
-        <h1 class="hero-title">RESON<br>HAQUE.</h1>
-        <p class="hero-sub">Crafting digital experiences and psychological narratives. Currently finalizing the manuscript for <i>THE VOID</i>.</p>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="relative-z">
         
-        <div class="btn-group">
-            <a href="#work" class="btn btn-primary">View Projects</a>
-            <a href="https://www.instagram.com/rezon.5839" class="btn btn-insta" target="_blank">Instagram @rezon.5839</a>
-        </div>
-    </header>
+        <nav>
+            <div class="logo">RH_DEV</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-btn">Light Mode</button>
+        </nav>
 
-    <section class="section" id="work">
-        <span class="section-title">Selected Work</span>
-
-        <div class="project-card">
-            <div class="project-year">2026</div>
-            <div class="project-info">
-                <h3>THE VOID</h3>
-                <p>A deep exploration into identity and human connection. A creative non-fiction project focused on grounding complex philosophy in real-world technical environments.</p>
+        <section class="hero" id="home">
+            <div class="hero-label reveal">Systems & Syntax</div>
+            <h1 class="hero-title reveal" style="transition-delay: 0.1s;">Rezon Haque.</h1>
+            <div class="typewriter-container reveal" style="transition-delay: 0.2s;">
+                <span id="typewriter"></span><span class="cursor"></span>
             </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-year">2026</div>
-            <div class="project-info">
-                <h3>System Optimization</h3>
-                <p>Engineering lightweight Linux environments for maximum hardware performance. Specializing in legacy hardware revival through custom zRAM and kernel tuning.</p>
+            <div class="btn-container reveal" style="transition-delay: 0.3s;">
+                <a href="#projects" class="btn btn-primary">Explore Portfolio</a>
+                <a href="https://www.instagram.com/rezon.5839" class="btn btn-insta" target="_blank">@rezon.5839</a>
             </div>
-        </div>
+        </section>
 
-        <div class="project-card">
-            <div class="project-year">2025</div>
-            <div class="project-info">
-                <h3>Full-Stack Dev</h3>
-                <p>Mastering modern web technologies including JavaScript, HTML5, and CSS3 to build performance-driven digital interfaces.</p>
+        <section class="section" id="about">
+            <div class="section-header reveal">
+                <h2 class="section-title">Core Directives</h2>
+                <span class="section-number">01</span>
             </div>
-        </div>
-    </section>
+            <div class="work-grid">
+                <div class="project-card reveal">
+                    <p class="project-desc" style="font-size: 1.5rem; color: var(--text-main);">
+                        I operate at the intersection of literary narrative and low-level hardware architecture. As an author and developer, I focus on extracting maximum performance—whether that means stripping down Linux distributions for legacy silicon or drafting complex psychological frameworks for modern fiction.
+                    </p>
+                    <div class="tech-stack" style="margin-top: 3rem;">
+                        <span class="tech-tag">HTML5 / CSS3</span>
+                        <span class="tech-tag">JavaScript Engineering</span>
+                        <span class="tech-tag">zRAM Optimization</span>
+                        <span class="tech-tag">Hardware Modification</span>
+                        <span class="tech-tag">PCB Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        &copy; 2026 Reson Haque. Designed with focus.
-    </footer>
-</div>
+        <section class="section" id="projects">
+            <div class="section-header reveal">
+                <h2 class="section-title">Selected Works</h2>
+                <span class="section-number">02</span>
+            </div>
+            <div class="work-grid">
+                
+                <div class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Creative Non-Fiction</span>
+                        <span>In Development</span>
+                    </div>
+                    <h3 class="project-title">THE VOID</h3>
+                    <p class="project-desc">
+                        A manuscript exploring the psychological weight of isolation and identity. By grounding philosophical themes in real-world scenarios—such as the quiet human connection found during hardware repair—the narrative bridges the gap between mechanical logic and emotional reality.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Narrative Design</span>
+                        <span class="tech-tag">Psychological Profiling</span>
+                        <span class="tech-tag">Manuskript Structure</span>
+                    </div>
+                </div>
 
-<script>
-    // Smooth scroll for the "View Projects" button
-    document.querySelector('.btn-primary').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector('#work').scrollIntoView({ behavior: 'smooth' });
-    });
-</script>
+                <div class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Systems Engineering</span>
+                        <span>Deployed</span>
+                    </div>
+                    <h3 class="project-title">Legacy System Revival</h3>
+                    <p class="project-desc">
+                        Engineered a comprehensive performance overhaul for aging computing hardware. Utilizing targeted component upgrades combined with highly customized Linux environments and aggressive zRAM configurations to sustain modern, high-volume web browsing capabilities on minimal physical memory.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Kernel Tuning</span>
+                        <span class="tech-tag">Component Modification</span>
+                    </div>
+                </div>
 
+                <div class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Front-End Dev</span>
+                        <span>Active</span>
+                    </div>
+                    <h3 class="project-title">Digital Ecosystems</h3>
+                    <p class="project-desc">
+                        Building responsive, dynamic web interfaces from the ground up without relying on heavy frameworks. Emphasizing clean, semantic markup, advanced CSS architecture, and integrating JavaScript for fluid user experiences.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Vanilla JS</span>
+                        <span class="tech-tag">DOM Manipulation</span>
+                        <span class="tech-tag">Responsive Grid</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer id="contact">
+            <p>Designed and built by Rezon Haque. &copy; 2026. All Systems Operational.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- 1. THEME TOGGLER LOGIC ---
+        const themeBtn = document.getElementById('theme-btn');
+        let currentTheme = 'dark';
+
+        themeBtn.addEventListener('click', () => {
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeBtn.textContent = 'Dark Mode';
+                currentTheme = 'light';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.textContent = 'Light Mode';
+                currentTheme = 'dark';
+            }
+        });
+
+        // --- 2. TYPEWRITER EFFECT ---
+        const phrases = [
+            "Author of THE VOID.",
+            "Optimizing Linux kernels.",
+            "Mastering JavaScript.",
+            "Designing logic circuits."
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeElement = document.getElementById('typewriter');
+        
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typeElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000; // Pause at end of phrase
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Pause before new phrase
+            }
+            
+            setTimeout(typeWriter, typeSpeed);
+        }
+        
+        // Start typing effect after a
+                    setTimeout(typeWriter, typeSpeed);
+        }
+        setTimeout(typeWriter, 1000);
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => revealOnScroll.observe(el));
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        let mouse = { x: null, y: null, radius: 150 };
+        window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.baseX = this.x; this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+            }
+            update() {
+                let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < mouse.radius) {
+                    this.x -= (dx/dist) * ((mouse.radius - dist) / mouse.radius) * this.density;
+                    this.y -= (dy/dist) * ((mouse.radius - dist) / mouse.radius) * this.density;
+                } else {
+                    if (this.x !== this.baseX) this.x -= (this.x - this.baseX) / 10;
+                    if (this.y !== this.baseY) this.y -= (this.y - this.baseY) / 10;
+                }
+                ctx.fillStyle = currentTheme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)';
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        function init() { for (let i = 0; i < 100; i++) particlesArray.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => p.update());
+            requestAnimationFrame(animate);
+        }
+        init(); animate();
+    </script>
 </body>
 </html>
