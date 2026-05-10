@@ -3,147 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rezon Haque | Author & Developer</title>
+    <title>Rezon Haque | Official Author Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* CSS Integration */
         :root {
-            --bg-color: #0d1117;
-            --text-color: #c9d1d9;
-            --accent-color: #58a6ff;
-            --card-bg: #161b22;
-            --border-color: #30363d;
+            --bg: #ffffff;
+            --text: #111111;
+            --accent: #0070f3; /* Premium Blue */
+            --secondary: #666666;
+            --button-bg: #111111;
+            --button-text: #ffffff;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, #1f6feb, #161b22);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: #fff;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.8;
+        /* Smooth reveal animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
+        /* Hero Section */
+        header {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 0.9;
             margin-bottom: 2rem;
         }
 
-        h2 {
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-            display: inline-block;
-            margin-top: 0;
+        .hero-sub {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
         }
 
-        .grid {
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background-color: var(--accent);
+        }
+
+        .btn-insta {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+
+        .btn-insta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(220, 39, 67, 0.3);
+        }
+
+        /* Projects Grid */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .project-card {
+            border-top: 1px solid #eaeaea;
+            padding: 3rem 0;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2fr;
             gap: 2rem;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover {
+            opacity: 0.7;
+        }
+
+        .project-year { font-weight: 300; color: var(--secondary); }
+        .project-info h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid #eaeaea;
+            text-align: center;
+            color: var(--secondary);
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
+            .project-card { grid-template-columns: 1fr; padding: 2rem 0; }
         }
-
-        .skill-tag {
-            background: #238636;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            opacity: 0.6;
-        }
-
-        a { color: var(--accent-color); text-decoration: none; }
-        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Rezon Haque</h1>
-    <p>Author of <i>THE VOID</i> | Full-Stack Developer | Hardware Enthusiast</p>
-</header>
-
 <div class="container">
-    
-    <div class="section">
-        <h2>About the Author</h2>
-        <p>I am a creative writer and developer focused on the intersection of human psychology and digital technology. My work spans from deep-dive geopolitical research to technical hardware optimization.</p>
-        <div>
-            <span class="skill-tag">HTML5/CSS3</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">Linux Optimization</span>
-            <span class="skill-tag">PCB Design</span>
+    <header>
+        <span class="section-title">Author & Full-Stack Developer</span>
+        <h1 class="hero-title">RESON<br>HAQUE.</h1>
+        <p class="hero-sub">Crafting digital experiences and psychological narratives. Currently finalizing the manuscript for <i>THE VOID</i>.</p>
+        
+        <div class="btn-group">
+            <a href="#work" class="btn btn-primary">View Projects</a>
+            <a href="https://www.instagram.com/rezon.5839" class="btn btn-insta" target="_blank">Instagram @rezon.5839</a>
         </div>
-    </div>
+    </header>
 
-    <div class="grid">
-        <div class="section">
-            <h2>Current Project: THE VOID</h2>
-            <p><i>THE VOID</i> is a creative non-fiction manuscript exploring isolation and identity. It grounds philosophical themes in real-life events, highlighting the quiet human connections found in shared technical struggles.</p>
+    <section class="section" id="work">
+        <span class="section-title">Selected Work</span>
+
+        <div class="project-card">
+            <div class="project-year">2026</div>
+            <div class="project-info">
+                <h3>THE VOID</h3>
+                <p>A deep exploration into identity and human connection. A creative non-fiction project focused on grounding complex philosophy in real-world technical environments.</p>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>Research: 2026 Iran Conflict</h2>
-            <p>A strategic analysis of "Operation Epic Fury" and its global impact. My research examines how regional instability affects energy prices, maritime security, and trade economies like India.</p>
+        <div class="project-card">
+            <div class="project-year">2026</div>
+            <div class="project-info">
+                <h3>System Optimization</h3>
+                <p>Engineering lightweight Linux environments for maximum hardware performance. Specializing in legacy hardware revival through custom zRAM and kernel tuning.</p>
+            </div>
         </div>
-    </div>
 
-    <div class="section">
-        <h2>Technical Expertise</h2>
-        <p>Beyond writing, I specialize in maximizing low-resource hardware performance. I have successfully configured high-volume browser support on legacy systems using lightweight Linux distributions and custom zRAM partitions.</p>
-    </div>
+        <div class="project-card">
+            <div class="project-year">2025</div>
+            <div class="project-info">
+                <h3>Full-Stack Dev</h3>
+                <p>Mastering modern web technologies including JavaScript, HTML5, and CSS3 to build performance-driven digital interfaces.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="section" style="text-align: center;">
-        <h2>Get in Touch</h2>
-        <p>Interested in collaboration or literary inquiries?</p>
-        <p>
-            <a href="https://github.com/Rezon-Dev">GitHub</a> | 
-            <a href="#">Instagram</a> | 
-            <a href="#">Email Me</a>
-        </p>
-    </div>
-
+    <footer>
+        &copy; 2026 Reson Haque. Designed with focus.
+    </footer>
 </div>
 
-<footer>
-    &copy; 2026 Rezon Haque. Built with custom HTML/CSS.
-</footer>
+<script>
+    // Smooth scroll for the "View Projects" button
+    document.querySelector('.btn-primary').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#work').scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
 
 </body>
 </html>
