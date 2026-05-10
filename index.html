@@ -1,75 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rezon Haque | Official Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>RH_SYSTEMS | Rezon Haque</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="custom-cursor"></div>
 
-    <nav class="navbar">
-        <div class="logo">RH_DEV</div>
-        <div class="nav-right">
-            <button id="theme-toggle" class="theme-btn">Dark Mode</button>
+    <div class="status-bar">
+        <span>SYSTEM_READY</span>
+        <span id="live-clock">00:00:00</span>
+        <span class="status-indicator">ACTIVE_NODE</span>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">RH<span>.OS</span></div>
+        <div class="nav-links">
+            <a href="#about">TERMINAL</a>
+            <a href="#projects">REPOSITORY</a>
+            <a href="#skills">MATRIX</a>
         </div>
+        <button id="theme-toggle" class="control-btn">DARK_MODE</button>
     </nav>
 
-    <main>
-        <section class="hero">
-            <div class="img-box">
-                <img src="60782.jpeg" alt="Rezon Haque" class="profile-pic">
+    <main class="container">
+        <section class="hero" id="about">
+            <div class="profile-container">
+                <div class="image-wrapper">
+                    <img src="60782.jpeg" alt="Rezon Haque" class="main-img">
+                    <div class="image-overlay"></div>
+                </div>
             </div>
-            <h1>Rezon Haque</h1>
-            <p class="type-box">I am a <span id="type-text"></span></p>
-            <div class="btn-group">
-                <a href="https://www.instagram.com/rezon.5839" class="btn btn-dark" target="_blank">Instagram</a>
-                <a href="#projects" class="btn btn-light">Explore Work</a>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">Technical Matrix</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Development</h3>
-                    <p>HTML5, CSS3, JavaScript, Full-Stack Architecture.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>Media</h3>
-                    <p>Professional Video Editing & Cinematic Photo Post-Processing.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>Systems</h3>
-                    <p>Linux Kernel Optimization, zRAM Config, Hardware Repair.</p>
-                </div>
+            <h1 class="glitch" data-text="REZON HAQUE">REZON HAQUE</h1>
+            <div class="console">
+                <span class="prompt">></span> <span id="type-text"></span><span class="cursor">_</span>
             </div>
         </section>
 
-        <section id="projects" class="section">
-            <h2 class="section-title">Major Projects</h2>
-            <div class="project-list">
-                <div class="project-item">
-                    <div class="project-info">
-                        <span class="tag">Literature</span>
-                        <h3>THE VOID</h3>
-                        <p>A psychological manuscript exploring the intersection of human isolation and mechanical logic.</p>
-                    </div>
-                </div>
-                <div class="project-item">
-                    <div class="project-info">
-                        <span class="tag">Engineering</span>
-                        <h3>Legacy Revival</h3>
-                        <p>Stripping down OS environments to breathe life into aging hardware using custom kernels.</p>
-                    </div>
-                </div>
+        <div class="stats-grid">
+            <div class="stat-card"><h3>4GB</h3><p>SYSTEM RAM</p></div>
+            <div class="stat-card"><h3>5.5GB</h3><p>zRAM ACTIVE</p></div>
+            <div class="stat-card"><h3>8th</h3><p>GRADE_CORE</p></div>
+            <div class="stat-card"><h3>JS</h3><p>LEARNING_NODE</p></div>
+        </div>
+
+        <section id="projects" class="matrix-section">
+            <h2 class="section-label">// DEPLOYED_PROJECTS</h2>
+            <div class="project-grid">
+                <article class="p-card">
+                    <div class="p-header"><span>01</span><span class="p-tag">LITERATURE</span></div>
+                    <h3>THE VOID</h3>
+                    <p>Psychological non-fiction manuscript exploring isolation in a digital age.</p>
+                    <div class="p-footer">STATUS: IN_PROGRESS</div>
+                </article>
+                <article class="p-card">
+                    <div class="p-header"><span>02</span><span class="p-tag">HARDWARE</span></div>
+                    <h3>REZIES_ELECTRO</h3>
+                    <p>Custom PCB design and hardware modifications for legacy systems.</p>
+                    <div class="p-footer">STATUS: ONLINE</div>
+                </article>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>REZON HAQUE &copy; 2026 • AUTHOR & DEVELOPER</p>
+    <footer class="system-footer">
+        <p>BUILD_VERSION_2026.05 // NO_TRACKING_ENABLED</p>
     </footer>
 
     <script src="script.js"></script>
