@@ -39,16 +39,7 @@
             --border-color: #e5e5e5;
         }
 
-        canvas#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* Change this from 0 to -1 */
-    pointer-events: none;
-    opacity: 0.6;
-        }
+        
         
 
         /* ==========================================================================
@@ -73,17 +64,7 @@
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        canvas#particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
+        
         .relative-z {
             position: relative;
             z-index: 10;
@@ -378,16 +359,22 @@
         }
 
         /* Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                /* Force content to stay visible and behind the particles */
+        canvas#particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* This moves the black background BEHIND your text */
+            pointer-events: none;
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .reveal {
+            opacity: 1 !important; /* Force opacity to 1 so text doesn't hide */
+            transform: none !important;
         }
+        
 
         /* ==========================================================================
            FOOTER
