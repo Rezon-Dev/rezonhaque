@@ -501,6 +501,10 @@
                         <span class="tech-tag">Vanilla JS</span>
                         <span class="tech-tag">DOM Manipulation</span>
                         <span class="tech-tag">Responsive Grid</span>
+                        <span class="tech-tag">Video Editing</span>
+<span class="tech-tag">Digital Art</span>
+<span class="tech-tag">AI Prompt Engineering</span>
+                        
                     </div>
                 </div>
 
@@ -535,6 +539,51 @@
             el.style.transform = "none";
         });
     };
+
+        // --- Updated Typewriter Phrases ---
+const phrases = [
+    "I am a website developer.",
+    "I am a photo editor.",
+    "I am a video editor.",
+    "I am an AI master."
+];
+
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typeElement = document.getElementById('typewriter');
+
+function typeWriter() {
+    const currentPhrase = phrases[phraseIndex];
+    
+    if (isDeleting) {
+        typeElement.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        typeElement.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+    }
+    
+    // Typing speed logic
+    let typeSpeed = isDeleting ? 50 : 100;
+    
+    if (!isDeleting && charIndex === currentPhrase.length) {
+        typeSpeed = 2000; // Pause at the end
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+    }
+    
+    setTimeout(typeWriter, typeSpeed);
+}
+
+// Start the animation
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(typeWriter, 1000);
+});
+        
     </script>
     
 </body>
