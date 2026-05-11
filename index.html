@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>RH WebOS | Rezon Haque</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REZON_HAQUE | Digital Architect</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body>
-  <!-- Bootloader Overlay -->
-  <div id="bootscreen">
-    <pre id="boot-log"></pre>
-  </div>
+<body class="premium-dark">
+    <div id="scroll-container">
+        
+        <nav class="glass-nav">
+            <div class="logo">RH<span>.ARCH</span></div>
+            <ul class="nav-links">
+                <li><a href="#work">PROJECTS</a></li>
+                <li><a href="#about">THE_VOID</a></li>
+                <li class="cta-pill"><a href="mailto:rezon@example.com">HIRE_ME</a></li>
+            </ul>
+        </nav>
 
-  <!-- Main Desktop Environment (hidden during boot) -->
-  <div id="desktop" class="hidden">
-    <!-- Desktop area for icons (optional) -->
-    <div id="desktop-area"></div>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="reveal-text">CRAFTING <span>SYSTEMS</span></h1>
+                <p class="subtitle">Class 8 Technical Architect & Full-Stack Developer</p>
+                <div class="status-badge">CURRENT_STATUS: ONLINE</div>
+            </div>
+            <div class="hero-bg-blur"></div>
+        </section>
 
-    <!-- Taskbar / Dock -->
-    <div id="dock">
-      <button id="start-btn" title="Start Menu">⚡</button>
-      <div id="dock-icons">
-        <button class="dock-icon" data-app="void" title="THE VOID">📖</button>
-        <button class="dock-icon" data-app="calc" title="Calculator">🔢</button>
-        <button class="dock-icon" data-app="terminal" title="Terminal">🖥️</button>
-      </div>
-      <div id="dock-right">
-        <span id="mini-clock">00:00</span>
-        <span id="mini-ram">RAM --%</span>
-      </div>
+        <section id="work" class="work-grid">
+            <div class="grid-item tall reveal">
+                <img src="60782.webp" alt="Hardware Engineering">
+                <div class="overlay"><h3>REZIES_ELECTRONICS</h3><p>Hardware & PCB Design</p></div>
+            </div>
+            <div class="grid-item wide reveal">
+                <div class="glass-card">
+                    <h2>THE VOID</h2>
+                    <p>A philosophical exploration into the silicon mind.</p>
+                    <button class="btn-outline">READ_MANUSCRIPT</button>
+                </div>
+            </div>
+            <div class="grid-item reveal">
+                <div class="stat-card">
+                    <span class="stat-num">5.5GB</span>
+                    <span class="stat-label">zRAM_ACTIVE</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-line"></div>
+            <p>&copy; 2026 REZON HAQUE // RHX_ENTERPRISES</p>
+        </footer>
     </div>
 
-    <!-- Start Menu Popup -->
-    <div id="start-menu" class="popup-menu hidden">
-      <div class="menu-header">Rezon Haque Portfolio</div>
-      <div class="menu-item" data-action="open-brand" data-brand="rhx">🚀 RHX Enterprises</div>
-      <div class="menu-item" data-action="open-brand" data-brand="deshi">👕 Deshi Clothing</div>
-      <div class="menu-item" data-action="open-brand" data-brand="rezies">🔌 Rezies Electronics</div>
-      <div class="menu-separator"></div>
-      <div class="menu-item" data-action="toggle-theme">🌓 Toggle Theme</div>
-    </div>
-
-    <!-- Container for all floating windows -->
-    <div id="window-container"></div>
-  </div>
-
-  <script src="data_viewer.js"></script>
-  <script src="system.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
