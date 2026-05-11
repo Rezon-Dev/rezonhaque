@@ -10,230 +10,139 @@
     <style>
         :root {
     --bg: #050505;
-    --card: #111111;
     --accent: #0071e3;
-    --text-primary: #ffffff;
-    --text-dim: rgba(255, 255, 255, 0.6);
-    --glass: rgba(255, 255, 255, 0.03);
+    --text: #ffffff;
+    --dim: rgba(255, 255, 255, 0.5);
     --border: rgba(255, 255, 255, 0.1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-
 body {
     background-color: var(--bg);
-    color: var(--text-primary);
+    color: var(--text);
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Glassmorphism Nav */
-.glass-nav {
-    position: fixed; top: 0; width: 100%; height: 80px;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 10%; z-index: 1000;
-    backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+.story-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 80px 20px;
 }
 
-.logo { font-weight: 900; letter-spacing: -1px; font-size: 1.5rem; }
-.logo span { color: var(--accent); }
-.nav-links { display: flex; list-style: none; gap: 40px; align-items: center; }
-.nav-links a { text-decoration: none; color: var(--text-dim); font-size: 12px; font-weight: 700; transition: 0.3s; }
-.nav-links a:hover { color: var(--text-primary); }
-
-/* Hero Animation */
-.hero-section {
-    height: 100vh; display: flex; align-items: center; justify-content: center;
-    text-align: center; position: relative;
+/* 1:1 Photo Styling */
+.profile-header {
+    text-align: center;
+    margin-bottom: 100px;
 }
 
-.reveal-text {
-    font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; letter-spacing: -4px;
-    line-height: 0.9; animation: slideUp 1s ease forwards;
+.photo-wrapper {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px auto;
+    border: 2px solid var(--accent);
+    padding: 5px;
+    border-radius: 4px; /* Slightly rounded for a tech-look, or 0 for sharp */
 }
 
-.hero-bg-blur {
-    position: absolute; width: 40vw; height: 40vw;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-    filter: blur(100px); opacity: 0.2; z-index: -1;
+.photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the 1:1 ratio isn't distorted */
+    filter: grayscale(100%);
+    transition: 0.5s;
 }
 
-/* Modular Grid */
-.work-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 300px; gap: 20px; padding: 100px 10%;
+.photo-wrapper:hover img {
+    filter: grayscale(0%);
 }
 
-.grid-item { background: var(--card); border: 1px solid var(--border); border-radius: 24px; position: relative; overflow: hidden; }
-.tall { grid-row: span 2; }
-.wide { grid-column: span 2; }
-
-.grid-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.6; }
-.grid-item:hover img { transform: scale(1.05); opacity: 0.3; }
-
-.overlay { position: absolute; bottom: 30px; left: 30px; }
-
-/* Status Badge */
-.status-badge {
-    display: inline-block; padding: 8px 16px; background: var(--glass);
-    border: 1px solid var(--border); border-radius: 100px;
-    font-family: 'Fira Code', monospace; font-size: 10px; color: var(--accent);
+.main-name {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    text-transform: uppercase;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Story Sections */
+.log-entry {
+    margin-bottom: 80px;
+    border-left: 2px solid var(--border);
+    padding-left: 30px;
+    position: relative;
 }
 
-        /* --- KEEP YOUR EXISTING CSS AT THE TOP --- */
-
-:root {
-    --bg: #050505;
-    --card: #111111;
-    --accent: #0071e3;
-    --text-primary: #ffffff;
-    --text-dim: rgba(255, 255, 255, 0.6);
-    --glass: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.1);
+.log-entry:hover {
+    border-left-color: var(--accent);
+    transition: 0.3s;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-
-body {
-    background-color: var(--bg);
-    color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
+.timestamp {
+    font-family: 'Fira Code', monospace;
+    color: var(--accent);
+    font-size: 12px;
+    display: block;
+    margin-bottom: 10px;
 }
 
-/* Glassmorphism Nav */
-.glass-nav {
-    position: fixed; top: 0; width: 100%; height: 70px;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 5%; z-index: 1000;
-    backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+h2 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: var(--text);
 }
 
-.logo { font-weight: 900; font-size: 1.2rem; }
-.logo span { color: var(--accent); }
-.nav-links { display: flex; list-style: none; gap: 15px; }
-.nav-links a { text-decoration: none; color: var(--text-dim); font-size: 10px; font-weight: 700; }
-
-/* Hero Section */
-.hero-section {
-    height: 100vh; display: flex; flex-direction: column; 
-    align-items: center; justify-content: center;
-    text-align: center; padding: 0 20px;
+p {
+    color: var(--dim);
+    font-size: 1.1rem;
+    text-align: justify;
 }
 
-.reveal-text {
-    font-size: clamp(2.5rem, 8vw, 6rem); 
-    font-weight: 900; letter-spacing: -2px;
-    line-height: 1; margin-bottom: 10px;
+/* Remove any leftover card styles if they exist */
+.work-grid, .grid-item {
+    display: none;
 }
-
-.status-badge {
-    padding: 6px 12px; background: var(--glass);
-    border: 1px solid var(--border); border-radius: 100px;
-    font-family: 'Fira Code', monospace; font-size: 9px; color: var(--accent);
-}
-
-/* --- THE FIX FOR MOBILE (MEDIA QUERIES) --- */
-
-@media (max-width: 768px) {
-    /* Stack the grid into 1 column instead of 3 */
-    .work-grid {
-        display: flex;
-        flex-direction: column;
-        padding: 60px 20px;
-        gap: 20px;
-    }
-
-    .grid-item, .tall, .wide {
-        width: 100%;
-        min-height: 300px; /* Gives each card enough room */
-        grid-column: span 1 !important;
-        grid-row: span 1 !important;
-    }
-
-    .nav-links {
-        display: none; /* Hide nav links on mobile to save space */
-    }
-
-    .reveal-text {
-        font-size: 3.5rem;
-    }
-}
-
-/* Grid Gallery Base */
-.work-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 20px; padding: 100px 10%;
-}
-
-.grid-item { 
-    background: var(--card); 
-    border: 1px solid var(--border); 
-    border-radius: 24px; 
-    position: relative; 
-    overflow: hidden;
-    min-height: 250px;
-}
-.tall { grid-row: span 2; }
-.wide { grid-column: span 2; }
-
-.grid-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
         
     </style>
 </head>
     
 </head>
 <body class="premium-dark">
-    <div id="scroll-container">
-        
-        <nav class="glass-nav">
-            <div class="logo">RH<span>.ARCH</span></div>
-            <ul class="nav-links">
-                <li><a href="#work">PROJECTS</a></li>
-                <li><a href="#about">THE_VOID</a></li>
-                <li class="cta-pill"><a href="mailto:rezon@example.com">HIRE_ME</a></li>
-            </ul>
-        </nav>
+    <div class="story-container">
+        <header class="profile-header">
+            <div class="photo-wrapper">
+                <img src="60782.webp" alt="Rezon Haque">
+            </div>
+            <h1 class="main-name">REZON HAQUE</h1>
+        </header>
 
-        <section class="hero-section">
-            <div class="hero-content">
-                <h1 class="reveal-text">CRAFTING <span>SYSTEMS</span></h1>
-                <p class="subtitle">Class 8 Technical Architect & Full-Stack Developer</p>
-                <div class="status-badge">CURRENT_STATUS: ONLINE</div>
-            </div>
-            <div class="hero-bg-blur"></div>
-        </section>
+        <main class="story-content">
+            <section class="log-entry">
+                <span class="timestamp">[BOOT_SEQUENCE_INITIATED]</span>
+                <h2>01. SOURCE_CODE</h2>
+                <p>The journey began not with a silver spoon, but with a curiosity for the circuits beneath the surface. While others played within the GUI, I was looking for the Root access to my own potential.</p>
+            </section>
 
-        <section id="work" class="work-grid">
-            <div class="grid-item tall reveal">
-                <img src="Rezon.jpeg" alt="Hardware Engineering">
-                <div class="overlay"><h3>REZIES_ELECTRONICS</h3><p>Hardware & PCB Design</p></div>
-            </div>
-            <div class="grid-item wide reveal">
-                <div class="glass-card">
-                    <h2>THE VOID</h2>
-                    <p>A philosophical exploration into the silicon mind.</p>
-                    <button class="btn-outline">READ_MANUSCRIPT</button>
-                </div>
-            </div>
-            <div class="grid-item reveal">
-                <div class="stat-card">
-                    <span class="stat-num">5.5GB</span>
-                    <span class="stat-label">zRAM_ACTIVE</span>
-                </div>
-            </div>
-        </section>
+            <section class="log-entry">
+                <span class="timestamp">[HARDWARE_MODIFICATION_ACTIVE]</span>
+                <h2>02. MEMORY_RECOVERY</h2>
+                <p>In the silence of the academy, I learned that even "blown" components can be revived with the right friction and focus. I manually cleaned the RAM of my own discipline, upgrading from a 2GB mindset to a 4GB reality—learning that hardware repair is just a metaphor for self-repair.</p>
+            </section>
 
-        <footer>
-            <div class="footer-line"></div>
-            <p>&copy; 2026 REZON HAQUE // RHX_ENTERPRISES</p>
-        </footer>
+            <section class="log-entry">
+                <span class="timestamp">[MULTITASKING_OPTIMIZED]</span>
+                <h2>03. THE_VOID_PROTOCOL</h2>
+                <p>Expanding into the digital architecture of "THE VOID," I began drafting a philosophy that runs parallel to the code. Optimizing my life like a Linux kernel—lightweight, fast, and independent. I don't wait for permission; I compile my own future.</p>
+            </section>
+            
+            <section class="log-entry">
+                <span class="timestamp">[SYSTEM_STATUS: EXPANDING]</span>
+                <h2>04. RHX_ENTERPRISES</h2>
+                <p>The architecture is now global. From Deshi Clothing to Rezies Electronics, every brand is a node in a growing network. The uptime is 100%. The system is stable.</p>
+            </section>
+        </main>
     </div>
+</body>
+    
 
     <script src="script.js"></script>
 </body>
