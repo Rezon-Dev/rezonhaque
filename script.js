@@ -1,27 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Intersection Observer for Scroll Reveal
-    const observerOptions = { threshold: 0.2 };
-    
-    const observer = new IntersectionObserver((entries) => {
+    const options = {
+        threshold: 0.5, // Start typing when 50% of the section is visible
+        rootMargin: "0px"
+    };
+
+    const typeObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
+                const textElement = entry.target;
+                const fullText = textElement.getAttribute('data-text');
+                
+                // Start the typing effect
+                typeText(textElement, fullText);
+                
+                // Stop observing once typed so it doesn't repeat
+                observer.unobserve(textElement);
             }
         });
-    }, observerOptions);
+    }, options);
 
-    document.querySelectorAll('.reveal').forEach(el => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(40px)";
-        el.style.transition = "all 0.8s cubic-bezier(0.2, 1, 0.3, 1)";
-        observer.observe(el);
+    // Initialize all story paragraphs
+    const paragraphs = document.querySelectorAll('.story-content p');
+    
+    paragraphs.forEach(p => {
+        // Move the text into a data attribute and clear the paragraph
+        p.setAttribute('data-text', p.innerText);
+        p.innerText = ''; 
+        typeObserver.observe(p);
     });
 
-    // 2. Parallax Effect for Hero Background
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const bg = document.querySelector('.hero-bg-blur');
-        bg.style.transform = `translateY(${scrolled * 0.3}px)`;
-    });
+    function typeText(element, text) {
+        let i = 0;
+        element.style.opacity = "1"; // Ensure it's visible when typing starts
+        
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(timer);
+                // Add a subtle blinking cursor effect at the end if you want
+                element.innerHTML += '<span class="cursor">|</span>';
+            }
+        }, 20); // Adjust speed here (lower = faster)
+    }
 });
