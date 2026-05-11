@@ -3,141 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RH_SYSTEMS | Rezon Haque</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f5f5f7; --text: #1d1d1f; --accent: #0071e3;
-            --glass: rgba(255, 255, 255, 0.8); --border: rgba(0, 0, 0, 0.1); --card: #ffffff;
-        }
-        /* Explicit Dark Theme styles */
-        html[data-theme="dark"] {
-            --bg: #000000; --text: #f5f5f7; --accent: #ffffff;
-            --glass: rgba(20, 20, 20, 0.8); --border: rgba(255, 255, 255, 0.1); --card: #121212;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.3s ease, color 0.3s ease; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh; }
-
-        /* Loader Safety */
-        #loader {
-            position: fixed; inset: 0; background: var(--bg); z-index: 10000;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Fira Code', monospace; font-size: 14px;
-        }
-
-        /* Status Bar & Nav */
-        .status-bar { background: var(--text); color: var(--bg); font-family: 'Fira Code', monospace; font-size: 10px; padding: 5px 10%; display: flex; justify-content: space-between; }
-        nav { position: sticky; top: 10px; margin: 10px 5%; background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 20px; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-        .logo { font-weight: 900; letter-spacing: 2px; }
-        .logo span { color: var(--accent); }
-
-        /* Toggle Button - High Visibility */
-        .control-btn { 
-            background: var(--text); color: var(--bg); border: 1px solid var(--border); 
-            padding: 10px 20px; border-radius: 12px; cursor: pointer; 
-            font-family: 'Fira Code', monospace; font-size: 11px; font-weight: 900;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Content Sections */
-        .container { max-width: 1000px; margin: 0 auto; padding: 50px 5%; }
-        .hero { text-align: center; padding: 40px 0; }
-        .img-wrapper { width: 220px; height: 220px; margin: 0 auto 30px; border-radius: 40px; overflow: hidden; border: 2px solid var(--border); }
-        .main-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .img-wrapper:hover .main-img { filter: grayscale(0%); transform: scale(1.05); }
-
-        .console { font-family: 'Fira Code', monospace; font-size: 1.1rem; color: var(--accent); margin: 20px 0 40px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 40px 0; }
-        .stat-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        
-        footer { text-align: center; padding: 40px; font-family: 'Fira Code', monospace; font-size: 10px; opacity: 0.4; }
-    </style>
+    <title>RH WebOS | Rezon Haque</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="loader">INITIALIZING_CORE...</div>
-
-    <div class="status-bar">
-        <span>STATUS: ONLINE</span>
-        <span id="live-clock">00:00:00</span>
-        <span>USER: REZON_HAQUE</span>
+    <div id="bootscreen">
+        <pre id="boot-log"></pre>
     </div>
-
-    <nav>
-        <div class="logo">RH<span>.OS</span></div>
-        <button id="theme-toggle" class="control-btn">CORE_DARK</button>
-    </nav>
-
-    <main class="container">
-        <section class="hero">
-            <div class="img-wrapper">
-                <img src="Rezon.jpeg" alt="Rezon Haque" class="main-img">
-            </div>
-            <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); letter-spacing: -3px;">REZON HAQUE</h1>
-            <div class="console">> <span id="type-text"></span>_</div>
-        </section>
-
-        <div class="stats-grid">
-            <div class="stat-card"><h3>4GB</h3><p>PHYSICAL_RAM</p></div>
-            <div class="stat-card"><h3>5.5GB</h3><p>zRAM_ACTIVE</p></div>
-            <div class="stat-card"><h3>Class 8</h3><p>ACADEMY_RANK</p></div>
-            <div class="stat-card"><h3>AI</h3><p>MASTER_NODE</p></div>
+    <div id="desktop" class="hidden">
+        <div id="status-bar">
+            <span id="status-left">⚡ RH WebOS v1.0</span>
+            <span id="status-center"><span id="clock">00:00:00</span></span>
+            <span id="status-right">
+                <span id="uptime">UP: 0h 0m</span>
+                <span id="ram-usage">RAM: 0%</span>
+                <button id="theme-toggle" title="Toggle Light/Dark Mode">🌓</button>
+            </span>
         </div>
-    </main>
-
-    <footer>SYSTEM_v2.0 // 2026.05</footer>
-
-    <script>
-        // 1. Force Loader to disappear
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }, 1000);
-        });
-
-        // 2. High-Stability Theme Toggle
-        const themeBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-
-        // Check for saved preference
-        if (localStorage.getItem('theme') === 'dark') {
-            htmlElement.setAttribute('data-theme', 'dark');
-            themeBtn.textContent = 'CORE_LIGHT';
-        }
-
-        themeBtn.addEventListener('click', () => {
-            if (htmlElement.hasAttribute('data-theme')) {
-                htmlElement.removeAttribute('data-theme');
-                themeBtn.textContent = 'CORE_DARK';
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeBtn.textContent = 'CORE_LIGHT';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
-        // 3. System Clock
-        setInterval(() => {
-            document.getElementById('live-clock').textContent = new Date().toLocaleTimeString('en-GB');
-        }, 1000);
-
-        // 4. Typewriter
-        const textEl = document.getElementById('type-text');
-        const roles = ["Website Developer", "Photo/Video Editor", "AI Master", "Author of THE VOID"];
-        let rIdx = 0, cIdx = 0, isDeleting = false;
-
-        function type() {
-            const current = roles[rIdx];
-            textEl.textContent = isDeleting ? current.substring(0, cIdx--) : current.substring(0, cIdx++);
-            let speed = isDeleting ? 40 : 80;
-            if (!isDeleting && cIdx > current.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && cIdx === 0) { isDeleting = false; rIdx = (rIdx + 1) % roles.length; speed = 500; }
-            setTimeout(type, speed);
-        }
-        type();
-    </script>
+        <div id="desktop-icons">
+            <div class="desktop-icon" data-app="files" ondblclick="openApp('files')">
+                <span class="icon">📁</span><br>File Explorer
+            </div>
+            <div class="desktop-icon" data-app="terminal" ondblclick="openApp('terminal')">
+                <span class="icon">🖥️</span><br>Terminal
+            </div>
+            <div class="desktop-icon" data-app="projects" ondblclick="openApp('projects')">
+                <span class="icon">🚀</span><br>Projects
+            </div>
+            <div class="desktop-icon" data-app="about" ondblclick="openApp('about')">
+                <span class="icon">👤</span><br>About Me
+            </div>
+            <div class="desktop-icon" data-app="diagnostics" ondblclick="openApp('diagnostics')">
+                <span class="icon">🔧</span><br>Diagnostics
+            </div>
+        </div>
+        <div id="window-container"></div>
+    </div>
+    <script src="system.js"></script>
 </body>
 </html>
