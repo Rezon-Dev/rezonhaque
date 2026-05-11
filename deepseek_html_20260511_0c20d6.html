@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="RHX Enterprises – Technical Architecture Division | Rezon Haque: Hardware Optimization, Digital Philosophy, Author of THE VOID">
+    <title>RHX ENTERPRISE // REZON HAQUE · Technical Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,800;14..32,900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- RESET & BASE (LOW-OVERHEAD) ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #010104;
+            background-image: radial-gradient(circle at 15% 30%, rgba(0, 113, 227, 0.12) 0%, rgba(0,0,0,0) 55%),
+                              radial-gradient(circle at 85% 70%, rgba(0, 180, 250, 0.05) 0%, transparent 70%);
+            color: #eef2ff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+            scroll-behavior: smooth;
+        }
+
+        /* glass core */
+        .glass-card {
+            background: rgba(12, 14, 22, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2rem;
+            transition: all 0.25s ease;
+        }
+
+        /* fluid typography */
+        h1, .hero-name {
+            font-size: clamp(2.8rem, 12vw, 6.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            background: linear-gradient(125deg, #FFFFFF, #7B9EFF, #3A7BD5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .tech-mono {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* layout containers */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        /* ---------- NAVBAR (SMART GLASS) ---------- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1100;
+            background: rgba(1, 1, 5, 0.75);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: #0077ff; }
+
+        .nav-links-desktop {
+            display: flex;
+            gap: 2.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+        }
+        .nav-links-desktop a {
+            color: #ccd6f0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-links-desktop a:hover { color: #0077ff; border-bottom: 1px solid #0077ff; }
+
+        /* mobile hamburger */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 2px;
+            background: white;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        /* fullscreen overlay menu (mobile) */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 2, 8, 0.98);
+            backdrop-filter: blur(24px);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+        }
+        .fullscreen-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .overlay-link {
+            font-family: 'Fira Code', monospace;
+            font-size: clamp(1.4rem, 6vw, 2.2rem);
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+            border-radius: 60px;
+        }
+        .overlay-link:hover { background: rgba(0,119,255,0.2); transform: scale(1.02);}
+        .close-overlay {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 12px;
+        }
+
+        /* Bento Grid (responsive) */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        /* project grid specific */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin-top: 1.2rem;
+        }
+
+        /* card styling */
+        .bento-card {
+            background: rgba(10, 12, 20, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            transition: transform 0.2s ease, border-color 0.2s;
+        }
+        .bento-card:hover {
+            transform: scale(1.01);
+            border-color: rgba(0,119,255,0.4);
+        }
+
+        .profile-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 2px solid #0077ff;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background: #0a0c14;
+        }
+        .profile-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2);}
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 1.8rem;
+            background: transparent;
+            border: 1px solid #0077ff;
+            border-radius: 60px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            color: #0077ff;
+            transition: 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: #0077ff;
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,119,255,0.2);
+        }
+
+        /* hardware spec-stats */
+        .hardware-stat {
+            background: rgba(0,0,0,0.5);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+        .memory-bar-bg {
+            background: #1e1f2c;
+            border-radius: 20px;
+            height: 12px;
+            overflow: hidden;
+        }
+        .memory-fill {
+            width: 0%;
+            height: 100%;
+            background: #0077ff;
+            border-radius: 20px;
+            transition: width 1s cubic-bezier(0.2,0.9,0.4,1.1);
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+        }
+
+        /* project spec sheet styling */
+        .spec-sheet {
+            background: rgba(0,0,0,0.45);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+        }
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding: 0.5rem 0;
+        }
+        .status-badge {
+            color: #2effb0;
+            text-shadow: 0 0 4px #00cc66;
+        }
+
+        /* skeleton shimmer */
+        .skeleton-card {
+            background: linear-gradient(110deg, #141824 8%, #202432 18%, #141824 33%);
+            background-size: 200% 100%;
+            animation: shimmer 1.6s linear infinite;
+            border-radius: 2rem;
+            min-height: 280px;
+        }
+        @keyframes shimmer {
+            to { background-position: -200% 0; }
+        }
+
+        /* system footer */
+        .sys-footer {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0,119,255,0.2);
+            padding: 1.2rem 2rem;
+            margin-top: 4rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        /* responsive */
+        @media (min-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-grid {
+                grid-template-columns: 1fr 1.2fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-links-desktop { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .navbar { padding: 0.8rem 1.2rem; }
+        }
+
+        /* touch targets */
+        button, .btn, .overlay-link, .mobile-menu-btn {
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        footer p { font-size: 0.7rem; opacity: 0.6; }
+        .time-stamp { color: #3b82f6; }
+    </style>
+</head>
+<body>
+
+<!-- mobile fullscreen menu overlay -->
+<div class="fullscreen-overlay" id="mobileOverlay">
+    <div class="close-overlay" id="closeMenuBtn">✕</div>
+    <a href="#hero" class="overlay-link" data-section="hero">🏠 HOME / ARCHITECT</a>
+    <a href="#hardware-case" class="overlay-link" data-section="hardware">⚙️ 4GB_CASE_STUDY</a>
+    <a href="#projects-section" class="overlay-link" data-section="projects">📡 PROJECT_BLUEPRINTS</a>
+    <a href="#philosophy" class="overlay-link" data-section="philosophy">📖 THE_VOID_MANIFESTO</a>
+    <a href="#contact" class="overlay-link" data-section="contact">📬 CONTACT_TERMINAL</a>
+</div>
+
+<!-- smart glass navbar -->
+<nav class="navbar">
+    <div class="logo">RH<span>.ARCH</span></div>
+    <div class="nav-links-desktop">
+        <a href="#hero">HOME</a>
+        <a href="#hardware-case">CASE_STUDY</a>
+        <a href="#projects-section">PROJECTS</a>
+        <a href="#philosophy">MANIFESTO</a>
+        <a href="#contact">CONTACT</a>
+    </div>
+    <button class="mobile-menu-btn" id="menuToggleBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<main class="container">
+    <!-- Hero / Profile section -->
+    <section id="hero">
+        <div class="hero-grid">
+            <div class="bento-card profile-card">
+                <div class="profile-photo">
+                    <img src="Rezon.jpeg" alt="Rezon Haque" onerror="this.src='https://placehold.co/400x400/0a0c14/0077ff?text=REZON+HAQUE'">
+                </div>
+                <h1 class="hero-name">REZON<br>HAQUE</h1>
+                <div class="tech-mono" style="margin: 0.5rem 0 1rem;">TECHNICAL ARCHITECT | AUTHOR | HARDWARE OPTIMIZER</div>
+                <a href="#philosophy" class="btn">VIEW_MANIFESTO →</a>
+            </div>
+            <div class="bento-card">
+                <div class="tech-mono" style="color:#3b82f6;">[ ROOT_ACCESS ]</div>
+                <h2 style="margin: 0.5rem 0;">“Efficiency is my religion. Independence is my OS.”</h2>
+                <p style="margin-top: 0.5rem; color: #b9c7d9;">Technical architect, digital creator. I operate at hardware-kernel level & write philosophy that cuts through silicon.</p>
+                <div class="hardware-stat">
+                    <div class="stat-row"><span>IDENTITY</span><span>REZON_HAQUE / RHX</span></div>
+                    <div class="stat-row"><span>ARCH</span><span>X86_64 / OPTIMIZED_LUBUNTU</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Case Study: 4GB Reality + zRAM -->
+    <section id="hardware-case">
+        <div class="bento-card">
+            <span class="tech-mono" style="color:#3b82f6;">[ CASE_STUDY: HARDWARE_RECLAIM ]</span>
+            <h2 style="margin: 0.8rem 0 0.5rem;">4GB_REALITY // zRAM_SORCERY</h2>
+            <p>They said the memory was capped, but I took alcohol & friction, reclaimed physical space. Now running 4GB stable with 5.5GB zRAM compression — efficiency religion.</p>
+            <div style="margin-top: 1.5rem;">
+                <div class="stat-row"><span>Physical RAM</span><span>4GB (100% active)</span></div>
+                <div class="memory-bar-bg"><div class="memory-fill" style="width:100%"></div></div>
+                <div class="stat-row" style="margin-top: 12px;"><span>zRAM (compressed)</span><span>5.5GB (137% efficiency)</span></div>
+                <div class="memory-bar-bg"><div class="memory-fill" style="width:137%; background: #38bdf8;"></div></div>
+                <div class="stat-row" style="margin-top: 12px;"><span>Kernel Params</span><span>swappiness=180, compression: zstd</span></div>
+            </div>
+            <div class="tech-mono" style="margin-top: 1rem; background: rgba(0,0,0,0.4); padding: 0.6rem; border-radius: 1rem;">✓ PERFORMANCE INDEX: +42% &nbsp;|&nbsp; THERMAL: 42°C &nbsp;|&nbsp; STABLE_BOOT</div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Dynamic from list.json) -->
+    <section id="projects-section">
+        <div class="tech-mono" style="margin-bottom: 1rem;">[ MANIFEST / PROJECT_BLUEPRINTS ]</div>
+        <h2>Deployed Artifacts</h2>
+        <div id="projectsContainer" class="projects-grid">
+            <!-- skeleton loader appears here -->
+            <div class="skeleton-card" style="height: 300px;"></div>
+            <div class="skeleton-card" style="height: 300px;"></div>
+        </div>
+    </section>
+
+    <!-- Philosophy / THE VOID manifesto -->
+    <section id="philosophy">
+        <div class="bento-card">
+            <span class="tech-mono" style="color:#3b82f6;">[ PROCESSED_LOG: THE_VOID ]</span>
+            <h2 style="margin: 0.8rem 0;">Inside the VOID — A Cyberpunk Memoir</h2>
+            <p style="font-size: 1.05rem; line-height: 1.5;">“Inside 'THE VOID,' I am crafting a memoir of the silicon age. It's not just writing; it's data persistence. A philosophical manuscript for those who feel the hum of the motherboard. RHX Enterprises is the network. I am the Root.”</p>
+            <div class="spec-sheet" style="margin-top: 1.2rem;">
+                <div class="spec-item"><span>PHILOSOPHY_VER</span><span>v2.1.0 (THE_VOID)</span></div>
+                <div class="spec-item"><span>MANUSCRIPT STATUS</span><span>LIVE / ARCHIVE</span></div>
+                <div class="spec-item"><span>ISBN (VOID)</span><span>978-81-956789-0-1</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Terminal -->
+    <section id="contact">
+        <div class="bento-card" style="text-align: center;">
+            <span class="tech-mono">[ CONTACT / TERMINAL_ROOT ]</span>
+            <h3 style="margin: 1rem 0;">Direct Channel</h3>
+            <a href="https://www.instagram.com/rezon.5839/" target="_blank" class="btn" style="margin: 1rem auto; background: linear-gradient(135deg, #f09433, #d62976); border: none; color: white;">📸 @rezon.5839 / INSTAGRAM</a>
+            <p class="tech-mono" style="margin-top: 1rem;">collaboration | creative inquiries | hardware philosophy</p>
+            <p class="tech-mono">rezon.haque@rhx.enterprise (simulated)</p>
+        </div>
+    </section>
+</main>
+
+<!-- System Metrics Footer (live tech strings) -->
+<footer class="sys-footer">
+    <div>⚡ MEM_ALLOC: 4GB_PHYSICAL // 5.5GB_VIRTUAL (zRAM)</div>
+    <div>🖥️ DISTRO: LUBUNTU_OPTIMIZED // KERNEL: 6.1-custom-rhx</div>
+    <div>📡 UPTIME: 14d_08h &nbsp;|&nbsp; SHELL: ZSH_ARCH</div>
+    <div>🔒 SYSTEM_STATUS: <span style="color:#2effb0;">STABLE</span></div>
+</footer>
+
+<script>
+    // pure vanilla JS - dynamic project loader from external list.json
+    const projectsGrid = document.getElementById('projectsContainer');
+
+    // Helper: create spec sheet card from project data
+    function createProjectCard(project) {
+        const name = project.name || project.title || "Untitled Blueprint";
+        const description = project.description || "No technical description provided.";
+        const version = project.version || "v1.0.0";
+        const status = project.status || "LIVE";
+        const category = project.category || "PHILOSOPHY_DATA";
+        const link = project.link || "#";
+
+        const card = document.createElement('div');
+        card.className = 'bento-card';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+        card.innerHTML = `
+            <div class="tech-mono" style="color:#3b82f6;">${category}</div>
+            <h3 style="margin: 0.5rem 0;">${escapeHtml(name)}</h3>
+            <p style="margin: 0.5rem 0 0.8rem; font-size:0.9rem;">${escapeHtml(description)}</p>
+            <div class="spec-sheet">
+                <div class="spec-item"><span>Version</span><span>${escapeHtml(version)}</span></div>
+                <div class="spec-item"><span>Status</span><span class="status-badge">${escapeHtml(status)}</span></div>
+                <div class="spec-item"><span>Category</span><span>${escapeHtml(category)}</span></div>
+                ${project.isbn ? `<div class="spec-item"><span>ISBN</span><span>${escapeHtml(project.isbn)}</span></div>` : ''}
+            </div>
+            <a href="${link}" target="_blank" class="btn" style="margin-top: auto; align-self: flex-start;">⟐ ACCESS / PURCHASE</a>
+        `;
+        return card;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    async function loadProjects() {
+        // show skeleton
+        if (projectsGrid) {
+            projectsGrid.innerHTML = `
+                <div class="skeleton-card" style="height: 320px;"></div>
+                <div class="skeleton-card" style="height: 320px;"></div>
+            `;
+        }
+        try {
+            const response = await fetch('./projects/list.json');
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            let projects = await response.json();
+            if (!Array.isArray(projects)) projects = [];
+            
+            // enrich if necessary, but ensure each item has expected fields
+            const fallbackEnhance = projects.map(p => {
+                if (p.name === "THE VOID" || p.title === "THE VOID") {
+                    return { ...p, name: "THE VOID", version: p.version || "v2.1.0", status: "LIVE", category: "PHILOSOPHY_DATA", isbn: "978-81-956789-0-1", link: p.link || "https://pothi.com/rezon-haque-void" };
+                } else if (p.name === "The Burning Quiet" || p.title === "The Burning Quiet") {
+                    return { ...p, name: "The Burning Quiet", version: p.version || "v1.4.2", status: "LIVE", category: "PHILOSOPHY_DATA", isbn: "978-81-956789-1-8", link: p.link || "https://pothi.com/rezon-haque-burning-quiet-0" };
+                }
+                return { ...p, version: p.version || "v1.0", status: p.status || "LIVE", category: p.category || "PHILOSOPHY_DATA" };
+            });
+            
+            if (fallbackEnhance.length === 0) throw new Error("Empty dataset");
+            renderProjectCards(fallbackEnhance);
+        } catch (err) {
+            console.warn("Using inline fallback data (list.json not found)", err);
+            const fallbackProjects = [
+                { name: "THE VOID", description: "A philosophical memoir exploring raw hardware and digital soul. Cyberpunk introspection.", version: "v2.1.0", status: "LIVE", category: "PHILOSOPHY_DATA", link: "https://pothi.com/rezon-haque-void", isbn: "978-81-956789-0-1" },
+                { name: "The Burning Quiet", description: "Data persistence in a world of noise. Silence & intensity on the motherboard.", version: "v1.4.2", status: "LIVE", category: "PHILOSOPHY_DATA", link: "https://pothi.com/rezon-haque-burning-quiet-0", isbn: "978-81-956789-1-8" }
+            ];
+            renderProjectCards(fallbackProjects);
+        }
+    }
+
+    function renderProjectCards(projectsArray) {
+        if (!projectsGrid) return;
+        projectsGrid.innerHTML = '';
+        projectsArray.forEach(proj => {
+            const card = createProjectCard(proj);
+            projectsGrid.appendChild(card);
+        });
+    }
+
+    // Mobile menu overlay logic (touch-friendly)
+    const overlay = document.getElementById('mobileOverlay');
+    const menuBtn = document.getElementById('menuToggleBtn');
+    const closeBtn = document.getElementById('closeMenuBtn');
+    const overlayLinks = document.querySelectorAll('.overlay-link');
+
+    function openMenu() { overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    overlayLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            closeMenu();
+            const targetId = link.getAttribute('href')?.substring(1);
+            if (targetId) {
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
+
+    // ensure memory-fill animation after load
+    window.addEventListener('load', () => {
+        loadProjects();
+        // small hardware visualization already width set; but smooth reflow
+        const fills = document.querySelectorAll('.memory-fill');
+        fills.forEach(fill => {
+            const width = fill.style.width;
+            if (width === '100%') fill.style.width = '100%';
+            if (width === '137%') fill.style.width = '137%';
+        });
+    });
+    
+    // cross - fix for desktop anchor smoothness + set consistent
+    document.querySelectorAll('.nav-links-desktop a, .btn[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>
