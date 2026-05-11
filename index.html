@@ -2,52 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>RH WebOS | Rezon Haque</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Bootloader Screen -->
+  <!-- Bootloader Overlay -->
   <div id="bootscreen">
     <pre id="boot-log"></pre>
   </div>
 
-  <!-- Desktop Environment (hidden until boot completes) -->
+  <!-- Main Desktop Environment (hidden during boot) -->
   <div id="desktop" class="hidden">
-    <!-- Top Status Bar -->
-    <div id="status-bar">
-      <span id="status-left">⚡ RH WebOS v1.0</span>
-      <span id="status-center"><span id="clock">00:00:00</span></span>
-      <span id="status-right">
-        <span id="uptime">UP: 0h 0m 0s</span>
-        <span id="ram-usage">RAM: --%</span>
-        <button id="theme-toggle" title="Toggle Light/Dark Mode" aria-label="Theme toggle">🌓</button>
-      </span>
-    </div>
+    <!-- Desktop area for icons (optional) -->
+    <div id="desktop-area"></div>
 
-    <!-- Desktop Icons -->
-    <div id="desktop-icons">
-      <div class="desktop-icon" data-app="files" ondblclick="openApp('files')">
-        <span class="icon">📁</span><br>File Explorer
+    <!-- Taskbar / Dock -->
+    <div id="dock">
+      <button id="start-btn" title="Start Menu">⚡</button>
+      <div id="dock-icons">
+        <button class="dock-icon" data-app="void" title="THE VOID">📖</button>
+        <button class="dock-icon" data-app="calc" title="Calculator">🔢</button>
+        <button class="dock-icon" data-app="terminal" title="Terminal">🖥️</button>
       </div>
-      <div class="desktop-icon" data-app="terminal" ondblclick="openApp('terminal')">
-        <span class="icon">🖥️</span><br>Terminal
-      </div>
-      <div class="desktop-icon" data-app="projects" ondblclick="openApp('projects')">
-        <span class="icon">🚀</span><br>Projects
-      </div>
-      <div class="desktop-icon" data-app="about" ondblclick="openApp('about')">
-        <span class="icon">👤</span><br>About Me
-      </div>
-      <div class="desktop-icon" data-app="diagnostics" ondblclick="openApp('diagnostics')">
-        <span class="icon">🔧</span><br>Diagnostics
+      <div id="dock-right">
+        <span id="mini-clock">00:00</span>
+        <span id="mini-ram">RAM --%</span>
       </div>
     </div>
 
-    <!-- Container for all open windows -->
+    <!-- Start Menu Popup -->
+    <div id="start-menu" class="popup-menu hidden">
+      <div class="menu-header">Rezon Haque Portfolio</div>
+      <div class="menu-item" data-action="open-brand" data-brand="rhx">🚀 RHX Enterprises</div>
+      <div class="menu-item" data-action="open-brand" data-brand="deshi">👕 Deshi Clothing</div>
+      <div class="menu-item" data-action="open-brand" data-brand="rezies">🔌 Rezies Electronics</div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" data-action="toggle-theme">🌓 Toggle Theme</div>
+    </div>
+
+    <!-- Container for all floating windows -->
     <div id="window-container"></div>
   </div>
 
+  <script src="data_viewer.js"></script>
   <script src="system.js"></script>
 </body>
 </html>
