@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <title>REZON HAQUE | Technical Architect & Digital Creator</title>
-<meta name="description" content="Portfolio of Rezon Haque: Student, technical architect, and author of THE VOID. Specializing in hardware optimization and digital creation.">
-<meta name="keywords" content="Rezon Haque, Rezon, Technical Architect, THE VOID book, hardware optimization">
-<link rel="canonical" href="https://rezonhaque.work.gd/">
+    <meta name="description" content="Portfolio of Rezon Haque: Student, technical architect, and author of THE VOID. Specializing in hardware optimization and digital creation.">
+    <meta name="keywords" content="Rezon Haque, Rezon, Technical Architect, THE VOID book, hardware optimization">
+    <link rel="canonical" href="https://rezonhaque.work.gd/">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,12 +75,36 @@
             font-size: clamp(3rem, 12vw, 7rem);
             font-weight: 900; letter-spacing: -4px;
             text-transform: uppercase; line-height: 0.8;
+            margin-bottom: 40px;
+        }
+
+        /* New About Button Style */
+        .about-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .about-btn:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 113, 227, 0.4);
+            transform: translateY(-2px);
         }
 
         /* Story Sections */
         .log-entry {
             margin-bottom: 100px; padding-left: 25px;
             border-left: 1px solid var(--border); position: relative;
+            scroll-margin-top: 120px;
         }
 
         .timestamp {
@@ -94,7 +118,7 @@
         .story-content p {
             font-size: 1.1rem; color: var(--dim);
             text-align: justify; min-height: 1.5em;
-            opacity: 0; /* Hidden until JS types it */
+            opacity: 0; 
         }
 
         .cursor {
@@ -136,6 +160,7 @@
     <nav class="glass-nav">
         <div class="logo">RH<span>.ARCH</span></div>
         <div class="nav-links">
+            <a href="#about">ABOUT</a>
             <a href="#story">STORY</a>
             <a href="mailto:rezon@example.com">CONTACT</a>
         </div>
@@ -147,10 +172,17 @@
                 <img src="Rezon.jpeg" alt="Rezon Haque">
             </div>
             <h1 class="main-name">REZON<br>HAQUE</h1>
+            <a href="#about" class="about-btn">[VIEW_MANIFESTO]</a>
         </header>
 
         <main class="story-content">
-            <section class="log-entry">
+            <section class="log-entry" id="about">
+                <span class="timestamp">[SYSTEM_INFO_LOAD]</span>
+                <h2>00. THE_ARCHITECT</h2>
+                <p>Technical architect, digital creator, and author. I operate at the intersection of raw hardware performance and high-level digital philosophy. From optimizing low-end systems to drafting "THE VOID," my goal is absolute efficiency.</p>
+            </section>
+
+            <section class="log-entry" id="story">
                 <span class="timestamp">[BOOT_SEQUENCE_SUCCESS]</span>
                 <h2>01. ORIGIN_CODE</h2>
                 <p>Born into a world of predefined interfaces, I chose the command line. My architecture was built in the silence of the Class 8 barracks, where I realized that hardware is just a mirror of the soul. I don't follow the path; I write the script.</p>
