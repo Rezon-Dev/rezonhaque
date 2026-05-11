@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RH WebOS | Rezon Haque</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>RH WebOS | Rezon Haque</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="bootscreen">
-        <pre id="boot-log"></pre>
+  <!-- Bootloader Screen -->
+  <div id="bootscreen">
+    <pre id="boot-log"></pre>
+  </div>
+
+  <!-- Desktop Environment (hidden until boot completes) -->
+  <div id="desktop" class="hidden">
+    <!-- Top Status Bar -->
+    <div id="status-bar">
+      <span id="status-left">⚡ RH WebOS v1.0</span>
+      <span id="status-center"><span id="clock">00:00:00</span></span>
+      <span id="status-right">
+        <span id="uptime">UP: 0h 0m 0s</span>
+        <span id="ram-usage">RAM: --%</span>
+        <button id="theme-toggle" title="Toggle Light/Dark Mode" aria-label="Theme toggle">🌓</button>
+      </span>
     </div>
-    <div id="desktop" class="hidden">
-        <div id="status-bar">
-            <span id="status-left">⚡ RH WebOS v1.0</span>
-            <span id="status-center"><span id="clock">00:00:00</span></span>
-            <span id="status-right">
-                <span id="uptime">UP: 0h 0m</span>
-                <span id="ram-usage">RAM: 0%</span>
-                <button id="theme-toggle" title="Toggle Light/Dark Mode">🌓</button>
-            </span>
-        </div>
-        <div id="desktop-icons">
-            <div class="desktop-icon" data-app="files" ondblclick="openApp('files')">
-                <span class="icon">📁</span><br>File Explorer
-            </div>
-            <div class="desktop-icon" data-app="terminal" ondblclick="openApp('terminal')">
-                <span class="icon">🖥️</span><br>Terminal
-            </div>
-            <div class="desktop-icon" data-app="projects" ondblclick="openApp('projects')">
-                <span class="icon">🚀</span><br>Projects
-            </div>
-            <div class="desktop-icon" data-app="about" ondblclick="openApp('about')">
-                <span class="icon">👤</span><br>About Me
-            </div>
-            <div class="desktop-icon" data-app="diagnostics" ondblclick="openApp('diagnostics')">
-                <span class="icon">🔧</span><br>Diagnostics
-            </div>
-        </div>
-        <div id="window-container"></div>
+
+    <!-- Desktop Icons -->
+    <div id="desktop-icons">
+      <div class="desktop-icon" data-app="files" ondblclick="openApp('files')">
+        <span class="icon">📁</span><br>File Explorer
+      </div>
+      <div class="desktop-icon" data-app="terminal" ondblclick="openApp('terminal')">
+        <span class="icon">🖥️</span><br>Terminal
+      </div>
+      <div class="desktop-icon" data-app="projects" ondblclick="openApp('projects')">
+        <span class="icon">🚀</span><br>Projects
+      </div>
+      <div class="desktop-icon" data-app="about" ondblclick="openApp('about')">
+        <span class="icon">👤</span><br>About Me
+      </div>
+      <div class="desktop-icon" data-app="diagnostics" ondblclick="openApp('diagnostics')">
+        <span class="icon">🔧</span><br>Diagnostics
+      </div>
     </div>
-    <script src="system.js"></script>
+
+    <!-- Container for all open windows -->
+    <div id="window-container"></div>
+  </div>
+
+  <script src="system.js"></script>
 </body>
 </html>
