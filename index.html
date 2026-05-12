@@ -365,6 +365,24 @@
 
         footer p { font-size: 0.7rem; opacity: 0.6; }
         .time-stamp { color: #3b82f6; }
+
+        .bmc-container {
+    margin-top: 20px; /* Space between Instagram and Coffee button */
+    display: flex;
+    justify-content: center; /* Centers the button if your links are centered */
+    transition: transform 0.3s ease;
+}
+
+.bmc-container:hover {
+    transform: scale(1.05); /* Adds a subtle high-end interaction */
+}
+
+/* Ensure the generated button matches your site's border-radius if needed */
+.bmc-btn {
+    border-radius: 12px !important; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+        
     </style>
 </head>
 <body>
@@ -470,6 +488,21 @@
             <p class="tech-mono">rezon.haque@rhx.enterprise (simulated)</p>
         </div>
     </section>
+    <!-- The Buy Me a Coffee Integration -->
+<div class="bmc-container">
+  <script type="text/javascript" 
+          src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+          data-name="bmc-button" 
+          data-slug="rezonhaqueb" 
+          data-color="#FFDD00" 
+          data-emoji=""  
+          data-font="Cookie" 
+          data-text="Fuel the hardware lab" 
+          data-outline-color="#000000" 
+          data-font-color="#000000" 
+          data-coffee-color="#ffffff">
+  </script>
+</div>
 </main>
 
 <!-- System Metrics Footer (live tech strings) -->
